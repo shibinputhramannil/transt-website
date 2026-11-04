@@ -1,0 +1,40 @@
+.band {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--r-xl);
+  padding: clamp(2.5rem, 6vw, 5rem);
+}
+
+.orb {
+  position: absolute;
+  right: -10%;
+  top: 50%;
+  width: min(58%, 560px);
+  transform: translateY(-50%);
+  opacity: 0.5;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.copy {
+  display: grid;
+  gap: var(--s-5);
+  max-width: 620px;
+  justify-items: start;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-2);
+}
+
+@media (max-width: 720px) {
+  .orb {
+    right: -45%;
+    width: 110%;
+    opacity: 0.3;
+  }
+}

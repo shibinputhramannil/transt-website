@@ -1,0 +1,99 @@
+/* ==========================================================================
+   TRANST design tokens
+   Single source of truth for colour, type, space, radius, elevation, motion.
+   ========================================================================== */
+
+:root {
+  /* ---- Brand palette ---------------------------------------------------- */
+  --forest: #245c49;          /* Deep Forest Green — primary */
+  --forest-600: #1d4b3c;
+  --forest-700: #163a2e;
+  --forest-300: #4f8a73;
+  --forest-100: #d5e3d9;
+  --cream: #fef9ec;           /* Warm Cream — page */
+  --cream-2: #eae6d9;         /* Secondary Cream — surfaces */
+  --cream-3: #ded8c6;         /* hairlines on cream */
+  --peach: #e8c5a3;           /* Soft Peach — accent */
+  --peach-600: #c99a6d;
+  --charcoal: #202923;        /* Architectural Charcoal — ink / dark sections */
+  --charcoal-2: #2a352e;
+  --charcoal-3: #3a463e;
+
+  /* ---- Semantic roles --------------------------------------------------- */
+  --bg: var(--cream);
+  --surface: var(--cream-2);
+  --ink: var(--charcoal);
+  --ink-2: #4a544d;           /* body copy on cream (AA on cream) */
+  --ink-3: #5a625b;           /* meta / captions — 5.99:1 on cream, 5.05:1 on secondary cream (AA) */
+  --line: rgba(32, 41, 35, 0.12);
+  --line-strong: rgba(32, 41, 35, 0.22);
+  --accent: var(--forest);
+  --on-accent: var(--cream);
+
+  --dark-bg: var(--charcoal);
+  --dark-ink: #f3eedf;
+  --dark-ink-2: rgba(243, 238, 223, 0.72);
+  --dark-line: rgba(243, 238, 223, 0.12);
+
+  /* ---- Typography ------------------------------------------------------- */
+  --font-serif: 'Newsreader Variable', 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Geist Variable', 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  /* Fluid type scale (min @ 360px → max @ 1440px) */
+  --fs-display: clamp(2.75rem, 1.6rem + 5.2vw, 6.25rem);
+  --fs-h1: clamp(2.375rem, 1.6rem + 3.4vw, 4.5rem);
+  --fs-h2: clamp(2rem, 1.45rem + 2.4vw, 3.5rem);
+  --fs-h3: clamp(1.375rem, 1.2rem + 0.8vw, 1.875rem);
+  --fs-h4: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem);
+  --fs-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.3125rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-mono: 0.75rem;
+
+  --lh-tight: 1.02;
+  --lh-heading: 1.1;
+  --lh-body: 1.6;
+  --tracking-display: -0.025em;
+  --tracking-mono: 0.08em;
+
+  /* ---- Space (4px base) ------------------------------------------------- */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --s-10: 8rem;
+  --section-y: clamp(4.5rem, 3rem + 7vw, 9rem);
+
+  /* ---- Layout ----------------------------------------------------------- */
+  --container: 1240px;
+  --container-wide: 1440px;
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 2.5rem);
+  --header-h: 72px;
+
+  /* ---- Radius & elevation ---------------------------------------------- */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-xl: 32px;
+  --r-pill: 999px;
+  --shadow-1: 0 1px 2px rgba(32, 41, 35, 0.06), 0 2px 8px rgba(32, 41, 35, 0.04);
+  --shadow-2: 0 8px 24px -8px rgba(32, 41, 35, 0.16), 0 2px 6px rgba(32, 41, 35, 0.05);
+  --shadow-3: 0 30px 60px -24px rgba(22, 58, 46, 0.32), 0 8px 18px -10px rgba(32, 41, 35, 0.12);
+
+  /* ---- Motion (mirrors src/motion/tokens.js) ---------------------------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 160ms;
+  --dur-2: 280ms;
+  --dur-3: 520ms;
+
+  --z-header: 50;
+  --z-menu: 60;
+  --z-intro: 100;
+}

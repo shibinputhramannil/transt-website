@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#FEF9EC" />
+    <!--
+      transt:head — replaced at build (and in dev) by the transt-site plugin in vite.config.js with the
+      route's <title>, description, robots, canonical, Open Graph / Twitter tags and Organization JSON-LD.
+      Sources: src/data/seo.js (titles, descriptions), src/data/contact.js, VITE_SITE_URL (domain).
+    -->
+    <!-- transt:head -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+    <!-- transt:noscript -->
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

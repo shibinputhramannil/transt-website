@@ -1,0 +1,144 @@
+.crumbs {
+  display: inline-flex;
+  gap: 0.6em;
+  align-items: center;
+}
+
+.crumbs a {
+  color: var(--ink-2);
+  transition: color var(--dur-2);
+}
+
+.crumbs a:hover {
+  color: var(--forest);
+}
+
+.notice {
+  display: grid;
+  gap: var(--s-2);
+  width: 100%;
+  max-width: 620px;
+  padding: var(--s-4) var(--s-5);
+  border-radius: var(--r-md);
+  border: 1px dashed var(--line-strong);
+  background: rgba(234, 230, 217, 0.6);
+  font-size: var(--fs-small);
+  color: var(--ink-2);
+}
+
+.notice :global(.t-mono) {
+  color: var(--forest);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  width: 100%;
+  margin-top: var(--s-3);
+}
+
+.caps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-5);
+  margin-top: var(--s-7);
+  padding: 0;
+}
+
+.cap {
+  display: grid;
+  align-content: start;
+  gap: var(--s-3);
+  padding: var(--s-6) var(--s-5);
+  border-radius: var(--r-lg);
+  background: var(--cream-2);
+  border: 1px solid var(--line);
+  transition: transform var(--dur-3) var(--ease-out), background-color var(--dur-3), border-color var(--dur-3);
+}
+
+.cap:hover {
+  transform: translateY(-4px);
+  background: var(--cream);
+  border-color: rgba(36, 92, 73, 0.4);
+}
+
+.capNum {
+  color: var(--forest);
+}
+
+.benefitsSection {
+  background: var(--cream-2);
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--s-8);
+  align-items: start;
+}
+
+.sticky {
+  position: sticky;
+  top: calc(var(--header-h) + var(--s-6));
+}
+
+.benefitList {
+  display: grid;
+  padding: 0;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: var(--s-5) 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.benefit svg {
+  flex: none;
+  color: var(--forest);
+}
+
+.arch {
+  margin-top: var(--s-7);
+}
+
+.uses {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5);
+  margin-top: var(--s-7);
+}
+
+.use {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-6);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(70% 90% at 100% 0%, rgba(232, 197, 163, 0.25), transparent 70%),
+    var(--cream);
+}
+
+@media (max-width: 900px) {
+  .caps {
+    grid-template-columns: 1fr;
+  }
+  .benefits {
+    grid-template-columns: 1fr;
+    gap: var(--s-5);
+  }
+  .sticky {
+    position: static;
+  }
+  .uses {
+    grid-template-columns: 1fr;
+  }
+}

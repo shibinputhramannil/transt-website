@@ -1,0 +1,112 @@
+.btn {
+  --btn-bg: var(--forest);
+  --btn-fg: var(--cream);
+  --btn-border: transparent;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 48px;
+  padding: 0 1.375rem;
+  border-radius: var(--r-pill);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1px solid var(--btn-border);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 520;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    background-color var(--dur-2) var(--ease-out),
+    color var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out),
+    transform var(--dur-2) var(--ease-out),
+    box-shadow var(--dur-2) var(--ease-out);
+}
+
+/* Sweep fill that grows from the left on hover */
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--btn-hover, var(--forest-700));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-3) var(--ease-out);
+}
+
+.btn:hover::before {
+  transform: scaleX(1);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.arrow {
+  flex: none;
+  transition: transform var(--dur-2) var(--ease-out);
+}
+
+.btn:hover .arrow {
+  transform: translateX(3px);
+}
+
+.sm {
+  min-height: 40px;
+  padding: 0 1rem;
+  font-size: 0.875rem;
+}
+
+.primary {
+  box-shadow: 0 10px 24px -12px rgba(36, 92, 73, 0.6);
+}
+
+.secondary {
+  --btn-bg: transparent;
+  --btn-fg: var(--charcoal);
+  --btn-border: var(--line-strong);
+  --btn-hover: var(--cream-2);
+}
+
+.secondary:hover {
+  --btn-border: var(--charcoal);
+}
+
+.ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--forest);
+  --btn-hover: transparent;
+  padding-inline: 0;
+  min-height: 40px;
+}
+
+.ghost span {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--dur-3) var(--ease-out);
+}
+
+.ghost:hover span {
+  background-size: 100% 1px;
+}
+
+.light {
+  --btn-bg: var(--cream);
+  --btn-fg: var(--charcoal);
+  --btn-hover: var(--peach);
+}
+
+.outlineLight {
+  --btn-bg: transparent;
+  --btn-fg: var(--dark-ink);
+  --btn-border: var(--dark-line);
+  --btn-hover: rgba(243, 238, 223, 0.08);
+}

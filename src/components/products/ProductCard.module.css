@@ -1,0 +1,167 @@
+.card {
+  --mx: 50%;
+  --my: 30%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r-lg);
+  background: var(--cream);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  transition: transform var(--dur-3) var(--ease-out), box-shadow var(--dur-3) var(--ease-out), border-color var(--dur-3);
+}
+
+/* cursor-following spotlight */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(320px circle at var(--mx) var(--my), rgba(232, 197, 163, 0.35), transparent 60%);
+  opacity: 0;
+  transition: opacity var(--dur-3) var(--ease-out);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.card:hover,
+.card:focus-within {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-3);
+  border-color: rgba(36, 92, 73, 0.4);
+}
+
+.card:hover::before,
+.card:focus-within::before {
+  opacity: 1;
+}
+
+.visual {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(to right, var(--line) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px) 0 0 / 28px 28px,
+    var(--cream-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.featured .visual {
+  background:
+    linear-gradient(to right, var(--line) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px) 0 0 / 28px 28px,
+    radial-gradient(80% 90% at 50% 50%, rgba(232, 197, 163, 0.55), transparent 70%),
+    var(--cream-2);
+}
+
+.glyph {
+  width: 46%;
+  aspect-ratio: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: var(--r-pill);
+  background: var(--forest);
+  color: var(--cream);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  box-shadow: 0 6px 16px -8px rgba(36, 92, 73, 0.7);
+}
+
+.badge svg {
+  color: var(--peach);
+}
+
+.badgePos {
+  position: absolute;
+  top: var(--s-4);
+  left: var(--s-4);
+  z-index: 2;
+}
+
+.sample {
+  position: absolute;
+  top: var(--s-4);
+  right: var(--s-4);
+  z-index: 2;
+  padding: 5px 9px;
+  border-radius: var(--r-pill);
+  border: 1px dashed var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  background: rgba(254, 249, 236, 0.7);
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-5);
+  flex: 1;
+  align-content: start;
+}
+
+.cat {
+  color: var(--forest);
+}
+
+.name {
+  font-family: var(--font-serif);
+  font-size: 1.625rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+/* whole card is clickable via the title link's stretched hit area */
+.link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.link:focus-visible {
+  outline: none;
+}
+
+.card:has(.link:focus-visible) {
+  outline: 2px solid var(--forest);
+  outline-offset: 3px;
+}
+
+.summary {
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+  font-size: 0.9375rem;
+  font-weight: 520;
+  color: var(--forest);
+}
+
+.more svg {
+  transition: transform var(--dur-2) var(--ease-out);
+}
+
+.card:hover .more svg {
+  transform: translateX(4px);
+}

@@ -1,0 +1,30 @@
+.panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  padding: clamp(2rem, 5vw, 4.5rem);
+  border-radius: var(--r-xl);
+  background:
+    radial-gradient(60% 80% at 100% 0%, rgba(232, 197, 163, 0.45), transparent 70%),
+    var(--cream-2);
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.copy {
+  display: grid;
+  gap: var(--s-5);
+  justify-items: start;
+}
+
+.channels {
+  min-width: 0;
+}
+
+@media (max-width: 940px) {
+  .panel {
+    grid-template-columns: 1fr;
+  }
+}

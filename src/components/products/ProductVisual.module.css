@@ -1,0 +1,64 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  perspective: 1000px;
+}
+
+.stage {
+  position: absolute;
+  inset: 6%;
+  transform-style: preserve-3d;
+}
+
+.plate {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(254, 249, 236, 0.95), rgba(234, 230, 217, 0.85) 60%),
+    var(--cream-2);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-3), inset 0 0 0 10px rgba(254, 249, 236, 0.6);
+}
+
+.ring {
+  position: absolute;
+  inset: -5%;
+  border-radius: 50%;
+  border: 1px dashed var(--line-strong);
+  transform: translateZ(-40px);
+}
+
+.glyph {
+  position: absolute;
+  inset: 14%;
+  transform: translateZ(50px);
+}
+
+.chip {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--r-pill);
+  background: rgba(254, 249, 236, 0.92);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-2);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--charcoal);
+  white-space: nowrap;
+  transform: translateZ(90px);
+  backdrop-filter: blur(6px);
+}
+
+.chipDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--forest);
+}

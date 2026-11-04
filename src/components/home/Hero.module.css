@@ -1,0 +1,233 @@
+/* ---- Dark stage --------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  margin-top: var(--header-h); /* the cream header sits above the stage, so the logo stays on cream */
+  min-height: calc(100svh - var(--header-h));
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  background:
+    radial-gradient(70% 55% at 50% 42%, rgba(36, 92, 73, 0.32), transparent 70%),
+    radial-gradient(120% 70% at 50% 120%, rgba(36, 92, 73, 0.55), transparent 60%),
+    #151b17;
+  color: var(--dark-ink);
+}
+
+/* ---- Aurora: rendered by components/ai/Aurora.jsx (low-res WebGL, upscaled) ---- */
+
+.aurora,
+.auroraStatic {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 72%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.aurora {
+  display: block;
+}
+
+/* no-WebGL fallback: the same light, static */
+.auroraStatic {
+  background:
+    radial-gradient(18% 70% at 48% 100%, rgba(110, 196, 160, 0.55), transparent 70%),
+    radial-gradient(14% 60% at 12% 100%, rgba(79, 138, 115, 0.55), transparent 70%),
+    radial-gradient(12% 50% at 66% 100%, rgba(232, 197, 163, 0.3), transparent 70%),
+    radial-gradient(16% 65% at 86% 100%, rgba(36, 92, 73, 0.7), transparent 70%);
+}
+
+/* ---- Layout ------------------------------------------------------------ */
+
+.inner {
+  position: relative;
+  min-height: inherit;
+  display: grid;
+  /* sides keep room for the copy; the stage gets the rest (capped) — no circular auto sizing */
+  grid-template-columns: minmax(260px, 1fr) minmax(0, 860px) minmax(260px, 1fr);
+  column-gap: var(--s-4);
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    '. stage .'
+    '. stage side';
+  align-items: end;
+  padding-block: var(--s-5) var(--s-6);
+}
+
+.stage {
+  grid-area: stage;
+  position: relative;
+  align-self: center;
+  justify-self: center;
+  width: min(88svh, 100%);
+  container-type: inline-size;
+}
+
+.sphere {
+  position: relative;
+}
+
+.center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: clamp(0.5rem, 2cqi, 1.25rem);
+  text-align: center;
+  pointer-events: none;
+}
+
+.center > * {
+  pointer-events: auto;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: clamp(0.625rem, 1.5cqi, 0.8125rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(243, 238, 223, 0.78);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.75rem, 8cqi, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--cream);
+  text-shadow: 0 2px 30px rgba(21, 27, 23, 0.65);
+}
+
+.title em {
+  color: var(--peach);
+}
+
+.side {
+  grid-area: side;
+  justify-self: end;
+  display: grid;
+  gap: var(--s-4);
+  max-width: 340px;
+  padding-bottom: var(--s-2);
+}
+
+.lead {
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: rgba(243, 238, 223, 0.86);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+}
+
+/* Keyboard-only motion control: hidden until focused with Tab, then shown bottom-left. */
+.pause {
+  position: absolute;
+  left: var(--gutter, 1.5rem);
+  bottom: var(--s-4);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 40px;
+  padding: 0 0.95rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--dark-line);
+  background: rgba(21, 27, 23, 0.4);
+  backdrop-filter: blur(6px);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--dark-ink);
+  transition: border-color var(--dur-2), background-color var(--dur-2);
+}
+
+.pause:hover {
+  border-color: var(--peach);
+  background: rgba(232, 197, 163, 0.08);
+}
+
+.pause:not(:focus-visible) {
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Tablet & mobile: sphere first, then description ---- */
+
+@media (max-width: 1179px) {
+  .inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'stage'
+      'side';
+    justify-items: center;
+    align-items: start;
+    row-gap: var(--s-5);
+    padding-block: var(--s-3) var(--s-6);
+  }
+  .stage {
+    width: min(100%, 640px, 72svh);
+  }
+  .side {
+    justify-self: center;
+    justify-items: center;
+    text-align: center;
+    max-width: 520px;
+    margin-top: calc(var(--s-6) * -1);
+  }
+  .ctas {
+    justify-content: center;
+  }
+  .pause {
+    /* when focused, show it above the sphere so it never covers the buttons */
+    top: var(--s-4);
+    bottom: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    border-radius: var(--r-lg) var(--r-lg) 0 0;
+    min-height: auto;
+  }
+  .inner {
+    /* a definite single column: children can never widen the track past the screen */
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--s-4);
+  }
+  .stage {
+    /* the sphere may bleed a little past the gutters so it reads big on phones,
+       without widening the grid track (justify-self centres the overflow evenly) */
+    width: min(100vw, 470px);
+    justify-self: center;
+  }
+  .side {
+    width: 100%;
+    margin-top: calc(var(--s-6) * -1);
+  }
+  .lead {
+    font-size: 1rem;
+  }
+  .ctas > * {
+    flex: 1 1 0;
+    padding-inline: 1rem;
+  }
+}

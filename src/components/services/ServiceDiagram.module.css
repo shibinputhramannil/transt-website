@@ -1,0 +1,158 @@
+.wrap {
+  --sd-line: rgba(32, 41, 35, 0.22);
+  --sd-accent: var(--forest);
+  --sd-warm: var(--peach-600);
+  --sd-fill: var(--cream);
+  --sd-fill-2: rgba(36, 92, 73, 0.08);
+  --sd-label: var(--ink-2);
+  --sd-strong: var(--charcoal);
+  width: 100%;
+  aspect-ratio: 320 / 220;
+}
+
+.dark {
+  --sd-line: rgba(243, 238, 223, 0.22);
+  --sd-accent: var(--peach);
+  --sd-warm: var(--peach);
+  --sd-fill: var(--charcoal-2);
+  --sd-fill-2: rgba(232, 197, 163, 0.12);
+  --sd-label: var(--dark-ink-2);
+  --sd-strong: var(--dark-ink);
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.rail {
+  fill: none;
+  stroke: var(--sd-line);
+  stroke-width: 1.4;
+  transition: stroke var(--dur-3) var(--ease-out);
+}
+
+.railOn {
+  stroke: var(--sd-accent);
+}
+
+.dashed {
+  stroke-dasharray: 3 5;
+}
+
+.packet,
+.packetWarm {
+  fill: none;
+  stroke: var(--sd-accent);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+}
+
+.packetWarm {
+  stroke: var(--sd-warm);
+}
+
+.plane {
+  fill: var(--sd-fill);
+  stroke: var(--sd-line);
+  stroke-width: 1.2;
+  transition: fill var(--dur-3) var(--ease-out), stroke var(--dur-3) var(--ease-out);
+}
+
+.planeOn {
+  fill: color-mix(in srgb, var(--sd-accent) 14%, var(--sd-fill));
+  stroke: var(--sd-accent);
+}
+
+.nodeBox,
+.chip,
+.block {
+  fill: var(--sd-fill);
+  stroke: var(--sd-line);
+  stroke-width: 1.2;
+  transition: fill var(--dur-3) var(--ease-out), stroke var(--dur-3) var(--ease-out);
+}
+
+.nodeBox {
+  stroke: var(--sd-accent);
+  stroke-width: 1.6;
+}
+
+.chipOn,
+.blockOn {
+  fill: var(--sd-fill-2);
+  stroke: var(--sd-accent);
+}
+
+.frame {
+  fill: none;
+  stroke: var(--sd-line);
+  stroke-width: 1.4;
+}
+
+.blockLine {
+  fill: var(--sd-line);
+}
+
+.dotMuted {
+  fill: var(--sd-line);
+}
+
+.chart {
+  fill: none;
+  stroke: var(--sd-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.cursor {
+  fill: var(--sd-warm);
+  stroke: var(--sd-fill);
+  stroke-width: 2;
+}
+
+.core {
+  fill: var(--sd-accent);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.coreWarm {
+  fill: var(--sd-warm);
+}
+
+.coreFill {
+  fill: var(--forest);
+}
+
+.dark .coreFill {
+  fill: var(--forest-300);
+}
+
+.check {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.label,
+.labelStrong,
+.labelInverse {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  fill: var(--sd-label);
+}
+
+.labelStrong {
+  fill: var(--sd-strong);
+  font-weight: 500;
+}
+
+.labelInverse {
+  fill: var(--cream);
+  font-size: 8px;
+}

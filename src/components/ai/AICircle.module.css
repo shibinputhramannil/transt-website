@@ -1,0 +1,178 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  /* tone variables */
+  --aic-line: rgba(32, 41, 35, 0.16);
+  --aic-line-strong: rgba(36, 92, 73, 0.55);
+  --aic-accent: var(--forest);
+  --aic-warm: var(--peach-600);
+  --aic-glow: #4f8a73;
+  --aic-node: var(--cream);
+  --aic-label: var(--charcoal);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dark {
+  --aic-line: rgba(243, 238, 223, 0.14);
+  --aic-line-strong: rgba(232, 197, 163, 0.7);
+  --aic-accent: var(--peach);
+  --aic-warm: var(--peach);
+  --aic-glow: #245c49;
+  --aic-node: var(--charcoal);
+  --aic-label: var(--dark-ink);
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ticks line {
+  stroke: var(--aic-line);
+  stroke-width: 1;
+}
+
+.ticks .tickMajor {
+  stroke: var(--aic-line-strong);
+  stroke-width: 1.4;
+}
+
+.ring {
+  fill: none;
+  stroke: var(--aic-line);
+  stroke-width: 1;
+}
+
+.ringDashed {
+  stroke-dasharray: 2 7;
+  stroke: var(--aic-line-strong);
+  opacity: 0.6;
+}
+
+.arc {
+  fill: none;
+  stroke: var(--aic-accent);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.arcWarm {
+  stroke: var(--aic-warm);
+  stroke-width: 1.6;
+}
+
+.chord {
+  fill: none;
+  stroke: var(--aic-line);
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+  transition: stroke var(--dur-3) var(--ease-out);
+}
+
+.link {
+  fill: none;
+  stroke: var(--aic-line);
+  stroke-width: 1.2;
+  transition: stroke var(--dur-3) var(--ease-out), stroke-width var(--dur-3) var(--ease-out);
+}
+
+.chord.on {
+  stroke: var(--aic-line-strong);
+}
+
+.link.on {
+  stroke: var(--aic-line-strong);
+  stroke-width: 1.6;
+}
+
+.packet {
+  fill: none;
+  stroke: var(--aic-accent);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+}
+
+.packetWarm {
+  stroke: var(--aic-warm);
+  stroke-width: 2.6;
+}
+
+.node {
+  cursor: pointer;
+}
+
+.hit {
+  fill: transparent;
+}
+
+.halo {
+  fill: color-mix(in srgb, var(--aic-accent) 14%, transparent);
+  stroke: var(--aic-accent);
+  stroke-width: 1;
+}
+
+.dot {
+  fill: var(--aic-node);
+  stroke: var(--aic-accent);
+  stroke-width: 2;
+  transition: r var(--dur-2) var(--ease-out);
+}
+
+.node.on .dot {
+  fill: var(--aic-accent);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--aic-label);
+  pointer-events: none;
+  paint-order: stroke;
+  stroke: var(--bg);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+.dark .label {
+  stroke: var(--charcoal);
+}
+
+.coreHalo {
+  fill: none;
+  stroke: var(--aic-accent);
+  stroke-width: 1;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.coreRing {
+  fill: none;
+  stroke: rgba(254, 249, 236, 0.28);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+.coreArc {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+
+.coreDot {
+  fill: var(--peach);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Invisible full circle so rotating groups pivot on the core, not their own bbox */
+.anchor {
+  fill: none;
+  stroke: none;
+  pointer-events: none;
+}

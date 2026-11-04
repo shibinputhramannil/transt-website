@@ -1,0 +1,146 @@
+.root {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: var(--s-6);
+  align-items: stretch;
+}
+
+.diagram {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(2rem, 6vw, 5rem);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: var(--r-lg);
+  background:
+    linear-gradient(to right, var(--line) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px) 0 0 / 32px 32px,
+    var(--cream);
+  border: 1px solid var(--line);
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.edge {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.2;
+  transition: stroke var(--dur-3) var(--ease-out), stroke-width var(--dur-3);
+}
+
+.edgeOn {
+  stroke: var(--forest);
+  stroke-width: 1.6;
+}
+
+.packet {
+  fill: none;
+  stroke: var(--peach-600);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+.col {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: var(--s-4);
+}
+
+.colLabel {
+  color: var(--ink-3);
+  margin-bottom: var(--s-2);
+}
+
+.node {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: 0.875rem 1rem;
+  border-radius: var(--r-md);
+  background: var(--cream);
+  border: 1px solid var(--line-strong);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-align: left;
+  transition: border-color var(--dur-2), background-color var(--dur-2), box-shadow var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
+}
+
+.core .node {
+  background: var(--cream-2);
+}
+
+.node:hover {
+  border-color: var(--forest);
+}
+
+.nodeOn {
+  border-color: var(--forest);
+  background: var(--forest) !important;
+  color: var(--cream);
+  box-shadow: 0 12px 26px -12px rgba(36, 92, 73, 0.7);
+  transform: translateY(-2px);
+}
+
+.nodeDot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+}
+
+.nodeOn .nodeDot {
+  background: var(--peach);
+  border-color: var(--peach);
+}
+
+.detail {
+  padding: var(--s-6) var(--s-5);
+  border-radius: var(--r-lg);
+  background: var(--charcoal);
+  color: var(--dark-ink);
+  min-height: 220px;
+}
+
+.detail > div {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.detail :global(.t-mono) {
+  color: var(--peach);
+}
+
+.detail :global(.t-body) {
+  color: var(--dark-ink-2);
+}
+
+@media (max-width: 1000px) {
+  .root {
+    grid-template-columns: 1fr;
+  }
+  .detail {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .diagram {
+    grid-template-columns: 1fr;
+    gap: var(--s-7);
+  }
+  .col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .colLabel {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+}
