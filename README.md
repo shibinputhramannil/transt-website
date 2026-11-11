@@ -75,9 +75,10 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
 | TRANST ERP | `/products/erp` | Business Operations | [transt-erp](https://github.com/shibinputhramannil/transt-erp) (public) |
 | KitchenMind AI | `/products/kitchenmind-ai` | Business Operations | [transtkitchen](https://github.com/shibinputhramannil/transtkitchen) (public) |
 | TRANST E-Commerce | `/products/ecommerce` | E-Commerce | [transt-ecommerce](https://github.com/shibinputhramannil/transt-ecommerce) (public) |
-| TRANST Knowledge AI | `/products/knowledge-ai` | AI Software | private repository (no source link) |
+| CoreKnowledge | `/products/coreknowledge` | Knowledge Management | private repository (no source link) |
 
-- **Knowledge AI is in development** (`status: 'in-development'`). Only its dashboard shell and API foundation exist. Its card shows an **In development** tag, its page explains what exists today, every feature is tagged **Planned**, and it offers **Ask about it** instead of a demo request. When its features ship, remove the `planned` flags and the status, and update the text.
+- **CoreKnowledge** is built (phases 1–5, on the repository's `phases-2-5` branch) and runs as a private pilot. **No AI model is connected yet:** a built-in provider quotes the documents. The app says so, and so does the website (the "Answers with citations" capability and the "Answer service" node). Update those two texts when a model is connected.
+- **Products that aren't finished:** `status: 'in-development'` with a `statusNote` adds an **In development** tag and notice, and offers **Ask about it** instead of a demo request. `planned: true` on a capability or architecture node adds a **Planned** tag. No product uses either today.
 - Detail pages show a **Built with** list (`stack`) and, for public repositories, a **View source on GitHub** link (`source`).
 - All product pages and the catalog are indexable and listed in `sitemap.xml`.
 - To change a product, edit its entry; the field reference is at the top of `products.js`. In development the browser console reports missing or malformed fields (`src/data/validateProducts.js`). Set `featured: true` for a star badge on the catalog (never shown on the homepage).

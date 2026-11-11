@@ -29,7 +29,7 @@
 export const categories = [
   { id: 'operations', label: 'Business Operations' },
   { id: 'commerce', label: 'E-Commerce' },
-  { id: 'ai-software', label: 'AI Software' },
+  { id: 'knowledge', label: 'Knowledge Management' },
 ];
 
 export const products = [
@@ -321,97 +321,106 @@ export const products = [
     source: 'https://github.com/shibinputhramannil/transt-ecommerce',
   },
 
-  // Source: the private Knowledge AI repository (README and architecture docs).
-  // Phase 1 only: everything below except the stack is planned, and is marked so.
+  // Source: the private CoreKnowledge repository, branch phases-2-5 (README, architecture docs, code).
+  // Built (phases 1–5) and running as a private pilot. No AI model is connected yet: a built-in
+  // provider quotes the documents, and the app itself says so. When a model is connected, update
+  // the "Answers with citations" capability and the "Answer service" node.
   {
-    slug: 'knowledge-ai',
-    name: 'TRANST Knowledge AI',
-    category: 'ai-software',
+    slug: 'coreknowledge',
+    name: 'CoreKnowledge',
+    category: 'knowledge',
     featured: false,
-    status: 'in-development',
-    statusNote:
-      'The first stage is built: the dashboard and the API foundation. Document upload, search and AI answers are planned and not available yet.',
     summary:
-      'In development: an AI assistant that will answer questions from your organization’s own documents and cite its sources.',
+      'Search your organization’s own documents and get answers that cite their sources, in a private, invitation-only workspace.',
     description:
-      'Knowledge AI is being built so a team can upload its documents, search them, and ask questions answered only from those documents, with every source cited.',
+      'CoreKnowledge turns an organization’s documents into a knowledge base its team can search and question. Upload PDF, Word, text and Markdown files, search them, and ask questions answered from those documents, with every answer citing its sources.',
     capabilities: [
       {
         title: 'Document library',
-        planned: true,
-        text: 'Upload documents and have them processed in the background (text extracted, split and indexed), with each document’s status shown as it really is.',
+        text: 'Upload PDF, Word, text and Markdown files up to 20 MB. Each file is checked, stored privately and processed in the background with its status shown, and can be retried, replaced or deleted.',
       },
       {
-        title: 'Semantic search',
-        planned: true,
-        text: 'Search by meaning and by keyword, across your own organization’s documents only.',
+        title: 'Hybrid search',
+        text: 'Keyword search and vector search (PostgreSQL full text and pgvector) in one query, returning ranked passages with the document and page they come from.',
       },
       {
-        title: 'Cited answers',
-        planned: true,
-        text: 'Ask a question and get an answer built only from passages in your own documents, with each source cited.',
+        title: 'Answers with citations',
+        text: 'Ask a question and get an answer built only from your documents, with every source cited, or a plain “not enough information”. Until an AI model is connected, answers quote the documents directly and nothing leaves the system.',
+      },
+      {
+        title: 'Organizations and roles',
+        text: 'Invitation-only accounts, an organization switcher, and Owner, Admin, Editor and Viewer roles.',
+      },
+      {
+        title: 'Audit log',
+        text: 'Sign-ins, membership changes and role changes are recorded in an audit log.',
+      },
+      {
+        title: 'Built-in safeguards',
+        text: 'Each organization’s documents are kept separate, uploaded text is treated as untrusted, and every citation in an answer is checked before it is shown.',
       },
     ],
     benefits: [
-      'Answers grounded in your own documents, with sources you can check',
-      'Each organization’s documents kept separate from every other',
-      'An AI layer that can change provider without rebuilding the product',
+      'Answers you can check: every one cites its sources',
+      'A plain “not enough information” instead of a guess',
+      'Each organization’s documents private and separate from every other',
+      'Questions are not stored; only a usage count is kept',
     ],
     architecture: [
       {
         id: 'docs',
         label: 'Documents',
         layer: 'input',
-        planned: true,
-        text: 'Files your team uploads, stored with their processing status.',
+        text: 'PDF, Word, text and Markdown uploads, checked and stored privately in a directory or an S3-compatible bucket.',
       },
       {
         id: 'questions',
-        label: 'Questions',
+        label: 'Searches and questions',
         layer: 'input',
-        planned: true,
-        text: 'Questions asked in the web app.',
+        text: 'Typed into the React web app by members of the organization.',
       },
       {
         id: 'pipeline',
-        label: 'Processing pipeline',
+        label: 'Processing workers',
         layer: 'core',
-        planned: true,
-        text: 'Background workers (Celery and Redis) extract text, split it into passages and index them in PostgreSQL with pgvector.',
-      },
-      {
-        id: 'ai',
-        label: 'AI service layer',
-        layer: 'core',
-        planned: true,
-        text: 'One interface for embeddings and answers, so the AI provider can change without touching the rest of the product.',
+        text: 'Celery workers with Redis extract the text, split it into passages and index them in PostgreSQL with pgvector.',
       },
       {
         id: 'search',
-        label: 'Search results',
-        layer: 'output',
-        planned: true,
-        text: 'Passages from your own organization’s documents, ranked by meaning and keywords.',
+        label: 'Hybrid search',
+        layer: 'core',
+        text: 'Full-text and vector results fused into one ranking, always limited to the organization’s own ready documents.',
       },
       {
         id: 'answers',
+        label: 'Answer service',
+        layer: 'core',
+        text: 'Answers only from the retrieved passages and checks every citation. An AI model can be connected through its provider interface; until then a built-in provider quotes the passages.',
+      },
+      {
+        id: 'results',
+        label: 'Ranked passages',
+        layer: 'output',
+        text: 'Search results that show the document and page each passage comes from.',
+      },
+      {
+        id: 'cited',
         label: 'Cited answers',
         layer: 'output',
-        planned: true,
-        text: 'Answers built from the retrieved passages, each with its sources.',
+        text: 'Answers with their sources, or “not enough information” when the documents do not say.',
       },
     ],
     useCases: [
       {
-        title: 'Company knowledge base',
-        text: 'Staff ask how a process works and get an answer that quotes the policy or manual it came from.',
+        title: 'Policies and manuals',
+        text: 'Staff ask how leave, travel or a process works and get an answer that cites the policy it came from.',
       },
       {
         title: 'Onboarding new staff',
-        text: 'New team members find answers in existing documents instead of searching through folders.',
+        text: 'New team members search existing guides instead of asking around, and see where each answer comes from.',
       },
     ],
-    stack: ['React', 'Vite', 'Material UI', 'Django REST Framework'],
+    stack: ['React', 'Vite', 'Material UI', 'Django REST Framework', 'Celery', 'PostgreSQL + pgvector', 'Redis'],
     // The repository is private, so there is no public source link.
   },
 ];
