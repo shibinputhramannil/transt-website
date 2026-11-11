@@ -52,7 +52,6 @@
   text-transform: uppercase;
   color: var(--charcoal);
   white-space: nowrap;
-  transform: translateZ(90px);
   backdrop-filter: blur(6px);
 }
 

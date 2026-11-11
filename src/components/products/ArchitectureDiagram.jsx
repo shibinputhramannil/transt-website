@@ -5,7 +5,7 @@ import styles from './ArchitectureDiagram.module.css';
 
 const LAYERS = [
   { id: 'input', label: 'Inputs' },
-  { id: 'core', label: 'Intelligence' },
+  { id: 'core', label: 'Core' },
   { id: 'output', label: 'Outcomes' },
 ];
 
@@ -115,13 +115,14 @@ export default function ArchitectureDiagram({ nodes }) {
                   key={n.id}
                   ref={(el) => (nodeRefs.current[n.id] = el)}
                   type="button"
-                  className={`${styles.node} ${on ? styles.nodeOn : ''}`}
+                  className={`${styles.node} ${on ? styles.nodeOn : ''} ${n.planned ? styles.nodePlanned : ''}`}
                   aria-pressed={on}
                   onClick={() => setSelected(n.id)}
                   onPointerEnter={(e) => e.pointerType === 'mouse' && setSelected(n.id)}
                 >
                   <span className={styles.nodeDot} aria-hidden="true" />
                   {n.label}
+                  {n.planned && <span className="visually-hidden"> (planned)</span>}
                 </button>
               );
             })}
@@ -139,7 +140,10 @@ export default function ArchitectureDiagram({ nodes }) {
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.25 }}
             >
-              <p className="t-mono">{LAYERS.find((l) => l.id === sel.layer)?.label}</p>
+              <p className="t-mono">
+                {LAYERS.find((l) => l.id === sel.layer)?.label}
+                {sel.planned && ' · Planned'}
+              </p>
               <h3 className="t-h3">{sel.label}</h3>
               <p className="t-body">{sel.text}</p>
             </motion.div>

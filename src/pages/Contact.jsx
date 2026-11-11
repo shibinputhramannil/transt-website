@@ -6,7 +6,7 @@ import ContactChannels from '../components/contact/ContactChannels.jsx';
 import { Reveal, RevealGroup, RevealItem } from '../components/ui/Reveal.jsx';
 import Button from '../components/ui/Button.jsx';
 import { services, serviceById } from '../data/services.js';
-import { productBySlug } from '../data/products.js';
+import { productBySlug, inDevelopment } from '../data/products.js';
 import { site, mailto, whatsappLink } from '../data/site.js';
 import useSeo from '../hooks/useSeo.js';
 import { pages } from '../data/seo.js';
@@ -22,17 +22,19 @@ const MAX_MESSAGE = 2000;
 
 /**
  * Derive initial form state from links such as
- *   /contact?intent=demo&product=<slug>   (real products only — placeholders never prefill a demo)
- *   /contact?service=<service-id>          /contact?topic=products|services
+ *   /contact?intent=demo&product=<slug>       (products in development never prefill a demo)
+ *   /contact?intent=interest&product=<slug>   /contact?service=<service-id>   /contact?topic=products|services
  */
 function initialFromParams(params) {
   const product = productBySlug(params.get('product') ?? '');
   const service = serviceById(params.get('service') ?? '');
   const topic = params.get('topic');
-  if (product && !product.placeholder && params.get('intent') === 'demo') {
-    return { topic: 'products', message: `I'd like to request a demo of ${product.name}.\n\n` };
+  if (product) {
+    const demo = params.get('intent') === 'demo' && !inDevelopment(product);
+    const message = demo ? `I'd like to request a demo of ${product.name}.` : `I'd like to know more about ${product.name}.`;
+    return { topic: 'products', message: `${message}\n\n` };
   }
-  if (product || params.get('intent') === 'demo' || topic === 'products') {
+  if (params.get('intent') === 'demo' || topic === 'products') {
     return { topic: 'products', message: "I'd like to know more about TRANST products.\n\n" };
   }
   if (service) return { topic: service.id, message: `I'm interested in ${service.title}.\n\n` };

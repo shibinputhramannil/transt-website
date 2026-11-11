@@ -37,7 +37,7 @@
 
 .visual {
   position: relative;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: var(--card-visual-ratio, 16 / 10);
   display: grid;
   place-items: center;
   background:
@@ -56,7 +56,7 @@
 }
 
 .glyph {
-  width: 46%;
+  width: var(--card-glyph-size, 46%);
   aspect-ratio: 1;
   position: relative;
   z-index: 1;

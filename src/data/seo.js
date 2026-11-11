@@ -8,7 +8,7 @@
  *
  * Plain JavaScript only (no Vite APIs) so the build can import it.
  */
-import { products, hasPlaceholders } from './products.js';
+import { products } from './products.js';
 
 export const SITE_NAME = 'TRANST';
 export const TAGLINE = 'Intelligence, built into every solution.';
@@ -22,9 +22,8 @@ export const pages = {
   '/': { title: null, description: DEFAULT_DESCRIPTION },
   '/products': {
     title: 'Products',
-    description: 'Browse TRANST software products by category: AI software, automation, AI agents, web applications and integration.',
-    // The catalog only holds placeholder entries for now — keep it out of search results until real products are added.
-    noindex: hasPlaceholders,
+    description:
+      'TRANST software products: TRANST ERP for business operations, KitchenMind AI for kitchens, an e-commerce platform, and Knowledge AI, now in development.',
   },
   '/services': {
     title: 'Services',
@@ -44,10 +43,9 @@ export const pages = {
 
 export const notFoundMeta = { title: 'Page not found', description: 'The page you are looking for does not exist or has moved.', noindex: true };
 
-/** Product detail pages. Placeholder entries are never indexable and never describe themselves as real. */
+/** Product detail pages: the product's summary is its description (in-development products say so in it). */
 export function productMeta(product) {
   if (!product) return { title: 'Product not found', description: notFoundMeta.description, noindex: true };
-  if (product.placeholder) return { title: product.name, description: 'Placeholder product page — not a real TRANST product.', noindex: true };
   return { title: product.name, description: product.summary, noindex: false };
 }
 

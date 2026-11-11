@@ -11,9 +11,9 @@ npm run preview    # serve dist/ at http://localhost:4173
 
 ## Launch blockers
 
-- [ ] **Production domain.** Set `VITE_SITE_URL` (see Deploying). Until then the site has no canonical URLs, no `og:url`, relative share-image URLs, and no sitemap.
+- [x] **Production domain.** On Vercel, `VITE_SITE_URL` is `https://transt-website.vercel.app` (Production environment). Change it and redeploy when a custom domain is added (see Deploying).
 - [ ] **WhatsApp country code.** The number was supplied as `8590675644` without a country code, and `+91` (India) is assumed. Confirm it, or correct it in `src/data/contact.js`.
-- [ ] **Real products.** All six catalog entries are placeholders (see below).
+- [x] **Real products.** The catalog lists the four TRANST products (see Products below).
 - [ ] **Contact backend (optional).** The form only hands messages to WhatsApp or email; nothing is submitted to a server.
 
 ## Deploying
@@ -26,7 +26,7 @@ The domain is configured with one environment variable, **`VITE_SITE_URL`**: the
 2. **Build:** `npm ci && npm run build`. With a domain set, the build prints no `transt-site` warning.
 3. **Check the output** in `dist/` before uploading:
    - `robots.txt` ends with `Sitemap: https://www.your-domain.com/sitemap.xml`;
-   - `sitemap.xml` lists only indexable pages (today `/`, `/services`, `/about`, `/contact`; placeholders and the placeholder-only catalog are left out);
+   - `sitemap.xml` lists the indexable pages: `/`, `/products`, `/services`, `/about`, `/contact` and every product page (the 404 page is left out);
    - `dist/services/index.html` contains `<link rel="canonical" href="https://www.your-domain.com/services" />`.
 4. **Upload `dist/`** to any static host. Publish directory: `dist`. Build command: `npm run build`.
 
@@ -66,20 +66,26 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
 
 `index.html` is a template: the `transt-site` plugin in `vite.config.js` fills in its metadata, Organization JSON-LD and `<noscript>` contact fallback from the files above. Don't hardcode metadata or contact details there.
 
-### Products are placeholders
+### Products
 
-The real portfolio has not been supplied. The six entries in `products.js` are marked `placeholder: true`, and while that flag is set:
+`products.js` lists the four TRANST products. Every statement comes from the product's own repository (README and docs, checked against the code):
 
-- cards show a **Placeholder** tag, and the catalog shows a notice saying the portfolio is not published yet;
-- detail pages show a "Placeholder page" notice, offer **no demo request** (only a general product enquiry), and are `noindex`;
-- the catalog page is `noindex` while any placeholder remains, and placeholders are left out of `sitemap.xml`;
-- all of this is baked into each page's generated HTML file as well as applied at runtime.
+| Product | Page | Category | Repository |
+| --- | --- | --- | --- |
+| TRANST ERP | `/products/erp` | Business Operations | [transt-erp](https://github.com/shibinputhramannil/transt-erp) (public) |
+| KitchenMind AI | `/products/kitchenmind-ai` | Business Operations | [transtkitchen](https://github.com/shibinputhramannil/transtkitchen) (public) |
+| TRANST E-Commerce | `/products/ecommerce` | E-Commerce | [transt-ecommerce](https://github.com/shibinputhramannil/transt-ecommerce) (public) |
+| TRANST Knowledge AI | `/products/knowledge-ai` | AI Software | private repository (no source link) |
 
-To add a real product, copy the template at the top of `products.js`, fill every field with verified information, and delete a placeholder. In development the browser console reports missing or malformed fields (`src/data/validateProducts.js`). Featured badges appear on the catalog only, never on the homepage.
+- **Knowledge AI is in development** (`status: 'in-development'`). Only its dashboard shell and API foundation exist. Its card shows an **In development** tag, its page explains what exists today, every feature is tagged **Planned**, and it offers **Ask about it** instead of a demo request. When its features ship, remove the `planned` flags and the status, and update the text.
+- Detail pages show a **Built with** list (`stack`) and, for public repositories, a **View source on GitHub** link (`source`).
+- All product pages and the catalog are indexable and listed in `sitemap.xml`.
+- To change a product, edit its entry; the field reference is at the top of `products.js`. In development the browser console reports missing or malformed fields (`src/data/validateProducts.js`). Set `featured: true` for a star badge on the catalog (never shown on the homepage).
+- KitchenMind AI also runs on Render (`kitchenmind-web.onrender.com`, free plan). The site does not link to it, because the free database expires and has no backups. Add a link only once it is on a paid plan.
 
 ### Contact form
 
-There is **no submission backend**. The form validates input, then opens WhatsApp or the visitor's email app with the message pre-written; the visitor presses send there. The page says so in plain words. A blocked WhatsApp window shows an error with a direct link. Every send offers **Copy message** plus the email address and WhatsApp number as a fallback. Links can prefill the form: `/contact?service=<id>#enquiry`, `/contact?topic=products#enquiry`, and `/contact?intent=demo&product=<slug>#enquiry` (real products only).
+There is **no submission backend**. The form validates input, then opens WhatsApp or the visitor's email app with the message pre-written; the visitor presses send there. The page says so in plain words. A blocked WhatsApp window shows an error with a direct link. Every send offers **Copy message** plus the email address and WhatsApp number as a fallback. Links can prefill the form: `/contact?service=<id>#enquiry`, `/contact?topic=products#enquiry`, `/contact?intent=demo&product=<slug>#enquiry` (a demo request; products in development get a plain enquiry instead), and `/contact?intent=interest&product=<slug>#enquiry`.
 
 The WhatsApp number assumes the India country code (`+91`) and **needs confirmation**. If it's wrong, change `whatsappDigits`, `whatsappDisplay` and `telephone` together in `src/data/contact.js`.
 
@@ -144,7 +150,7 @@ No products appear on the homepage.
 npm run build                      # must finish without errors
 npm run preview                    # then load every route at 390 / 820 / 1440px
 # confirm generated routes and metadata without a browser (no JavaScript involved):
-grep -o '<title>[^<]*</title>\|name="robots" content="[^"]*"' dist/products/product-1/index.html
+grep -o '<title>[^<]*</title>\|name="robots" content="[^"]*"' dist/products/erp/index.html
 ```
 
 The project has no lint or test scripts. During development it was checked with ESLint 9 (`@eslint/js` recommended + `eslint-plugin-react` + `react-hooks`) and axe-core 4, both run from a temporary folder, plus Playwright in Chromium and WebKit. Those runs covered all routes at three widths, direct loads and refreshes on a host with no rewrite rule, the contact hand-offs, and reduced motion.

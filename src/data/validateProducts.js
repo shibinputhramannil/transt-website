@@ -27,11 +27,13 @@ export default function validateProducts() {
     } else if (!['input', 'core', 'output'].every((l) => p.architecture.some((n) => n.layer === l))) {
       problems.push(`${at}: architecture should have at least one input, core and output node`);
     }
+    if (p.status !== undefined && p.status !== 'in-development') problems.push(`${at}: status must be 'in-development' or left out`);
+    if (p.status && !isText(p.statusNote)) problems.push(`${at}: statusNote is required when status is set`);
+    if (p.stack !== undefined && (!Array.isArray(p.stack) || !p.stack.every(isText))) problems.push(`${at}: stack must be a list of strings`);
+    if (p.source !== undefined && !/^https:\/\/\S+$/.test(p.source)) problems.push(`${at}: source must be an https URL`);
   });
 
   if (problems.length) {
     console.warn(`[products.js] ${problems.length} problem(s):\n• ${problems.join('\n• ')}`);
   }
-  const remaining = products.filter((p) => p.placeholder).length;
-  if (remaining) console.info(`[products.js] ${remaining} placeholder product(s) still in the catalog.`);
 }

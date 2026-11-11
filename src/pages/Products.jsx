@@ -1,11 +1,10 @@
 import { useMemo } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import PageHero from '../components/layout/PageHero.jsx';
 import ProductCard from '../components/products/ProductCard.jsx';
 import Button from '../components/ui/Button.jsx';
-import { Reveal } from '../components/ui/Reveal.jsx';
-import { categories, products, hasPlaceholders } from '../data/products.js';
+import { categories, products } from '../data/products.js';
 import useSeo from '../hooks/useSeo.js';
 import { pages } from '../data/seo.js';
 import styles from './Products.module.css';
@@ -42,8 +41,8 @@ export default function Products() {
     <>
       <PageHero
         eyebrow="Products"
-        title="Software with *intelligence* inside."
-        lead="TRANST software products, organised by the kind of work they do. Filter by category or open a product for details."
+        title="Products built by *TRANST.*"
+        lead="Software for running a business, a kitchen and an online store, plus an AI knowledge assistant in development. Filter by category or open a product for details."
         compact
       />
 
@@ -52,15 +51,6 @@ export default function Products() {
           <h2 id="catalog-title" className="visually-hidden">
             Product catalog
           </h2>
-          {hasPlaceholders && (
-            <Reveal className={styles.notice} role="note">
-              <span className="t-mono">Catalog preview</span>
-              <p>
-                The product portfolio has not been published yet. Entries marked <strong>Placeholder</strong> are
-                sample layouts, not real products. For current offerings, <Link to="/contact?topic=products#enquiry">ask us directly</Link>.
-              </p>
-            </Reveal>
-          )}
 
           <div className={styles.toolbar}>
             <LayoutGroup id="product-filters">

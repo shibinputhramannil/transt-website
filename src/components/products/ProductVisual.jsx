@@ -56,7 +56,9 @@ export default function ProductVisual({ product }) {
           <motion.span
             key={c}
             className={styles.chip}
-            style={chipPos[i]}
+            // depth goes through Framer Motion: its y animation writes the whole transform,
+            // which would otherwise drop the CSS translateZ and put the chip behind the glyph
+            style={{ ...chipPos[i], z: 90 }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: reduce || !inView ? 0 : [0, -6, 0] }}
             transition={{

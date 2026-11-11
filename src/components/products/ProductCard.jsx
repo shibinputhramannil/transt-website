@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import ProductGlyph from './ProductGlyph.jsx';
 import { Arrow } from '../ui/Button.jsx';
-import { categoryLabel } from '../../data/products.js';
+import { categoryLabel, inDevelopment } from '../../data/products.js';
 import { ease } from '../../motion/tokens.js';
 import styles from './ProductCard.module.css';
 
@@ -50,7 +50,7 @@ export default function ProductCard({ product }) {
           <ProductGlyph seed={product.slug} active={hover} />
         </div>
         {product.featured && <StarBadge className={styles.badgePos} />}
-        {product.placeholder && <span className={styles.sample}>Placeholder</span>}
+        {inDevelopment(product) && <span className={styles.sample}>In development</span>}
       </div>
       <div className={styles.body}>
         <p className={`t-mono ${styles.cat}`}>{categoryLabel(product.category)}</p>

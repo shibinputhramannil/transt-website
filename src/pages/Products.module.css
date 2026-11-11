@@ -2,38 +2,6 @@
   padding-top: var(--s-6);
 }
 
-.notice {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--s-2) var(--s-5);
-  align-items: baseline;
-  padding: var(--s-4) var(--s-5);
-  margin-bottom: var(--s-6);
-  border: 1px dashed var(--line-strong);
-  border-radius: var(--r-md);
-  background: rgba(234, 230, 217, 0.5);
-  font-size: var(--fs-small);
-  color: var(--ink-2);
-}
-
-.notice :global(.t-mono) {
-  color: var(--forest);
-}
-
-.notice a {
-  color: var(--forest);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.notice code {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  padding: 1px 6px;
-  border-radius: 4px;
-  background: var(--cream);
-}
-
 .toolbar {
   display: flex;
   align-items: center;
@@ -116,10 +84,19 @@
   margin: 0;
 }
 
+/* two columns: the four products sit as a balanced 2 × 2 grid */
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--s-5);
+}
+
+/* wide cards get a shorter visual so the text stays close to the top */
+@media (min-width: 1025px) {
+  .grid > * {
+    --card-visual-ratio: 2 / 1;
+    --card-glyph-size: 38%;
+  }
 }
 
 .empty {
@@ -130,17 +107,8 @@
   text-align: center;
 }
 
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 640px) {
   .grid {
-    grid-template-columns: 1fr;
-  }
-  .notice {
     grid-template-columns: 1fr;
   }
 }
