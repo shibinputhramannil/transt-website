@@ -13,7 +13,7 @@ npm run preview    # serve dist/ at http://localhost:4173
 
 - [x] **Production domain.** On Vercel, `VITE_SITE_URL` is `https://transt-website.vercel.app` (Production environment). Change it and redeploy when a custom domain is added (see Deploying).
 - [ ] **WhatsApp country code.** The number was supplied as `8590675644` without a country code, and `+91` (India) is assumed. Confirm it, or correct it in `src/data/contact.js`.
-- [x] **Real products.** The catalog lists the four TRANST products (see Products below).
+- [x] **Real products.** The catalog lists the five TRANST products (see Products below).
 - [ ] **Contact backend (optional).** The form only hands messages to WhatsApp or email; nothing is submitted to a server.
 
 ## Deploying
@@ -68,11 +68,12 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
 
 ### Products
 
-`products.js` lists the four TRANST products. Every statement comes from the product's own repository (README and docs, checked against the code):
+`products.js` lists the five TRANST products. Every statement comes from the product's own repository (README and docs, checked against the code):
 
 | Product | Page | Category | Repository |
 | --- | --- | --- | --- |
 | TRANST ERP | `/products/erp` | Business Operations | [transt-erp](https://github.com/shibinputhramannil/transt-erp) (public) |
+| TRANST Kitchen OS | `/products/kitchen-os` | Business Operations | private repository (no source link) |
 | KitchenMind AI | `/products/kitchenmind-ai` | Business Operations | [transtkitchen](https://github.com/shibinputhramannil/transtkitchen) (public) |
 | TRANST E-Commerce | `/products/ecommerce` | E-Commerce | [transt-ecommerce](https://github.com/shibinputhramannil/transt-ecommerce) (public) |
 | CoreKnowledge | `/products/coreknowledge` | Knowledge Management | private repository (no source link) |
@@ -83,6 +84,8 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
 - All product pages and the catalog are indexable and listed in `sitemap.xml`.
 - To change a product, edit its entry; the field reference is at the top of `products.js`. In development the browser console reports missing or malformed fields (`src/data/validateProducts.js`). Set `featured: true` for a star badge on the catalog (never shown on the homepage).
 - KitchenMind AI also runs on Render (`kitchenmind-web.onrender.com`, free plan). The site does not link to it, because the free database expires and has no backups. Add a link only once it is on a paid plan.
+- **Kitchen OS** started as a copy of KitchenMind AI and adds a dashboard, costs and a draft purchase list, delivery orders, nutrition suggestions and simulated production planning. Its page says it builds on KitchenMind AI, and keeps the app's own wording: estimates are labelled as estimates, nutrition is informational only, and production planning is a simulation. It runs on AWS; the site does not link to the app.
+- **Catalog layout:** the grid places cards two or three to a row depending on how many are shown, so no card sits alone on a row (see `.grid` in `Products.module.css`).
 
 ### Contact form
 

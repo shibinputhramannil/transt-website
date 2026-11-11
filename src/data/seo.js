@@ -23,7 +23,7 @@ export const pages = {
   '/products': {
     title: 'Products',
     description:
-      'TRANST software products: TRANST ERP for business operations, KitchenMind AI for kitchens, an e-commerce platform, and CoreKnowledge for searching your own documents.',
+      'TRANST software products: TRANST ERP for business operations, Kitchen OS and KitchenMind AI for kitchens, an e-commerce platform, and CoreKnowledge for your documents.',
   },
   '/services': {
     title: 'Services',

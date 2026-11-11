@@ -80,7 +80,13 @@ export default function Products() {
             </p>
           </div>
 
-          <motion.div layout className={styles.grid}>
+          <motion.div
+            layout
+            className={styles.grid}
+            data-count={visible.length}
+            data-odd={visible.length > 1 && visible.length % 2 === 1 ? '' : undefined}
+            data-many={visible.length >= 7 ? '' : undefined}
+          >
             <AnimatePresence mode="popLayout" initial={false}>
               {visible.map((p) => (
                 <ProductCard key={p.slug} product={p} />

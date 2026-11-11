@@ -127,6 +127,120 @@ export const products = [
     source: 'https://github.com/shibinputhramannil/transt-erp',
   },
 
+  // Source: the private Kitchen OS repository (README and code). It started as a copy of
+  // KitchenMind AI and adds Kitchen OS phases 1–4. The app labels its estimates as estimates and
+  // its production planner as a simulation; keep that wording here.
+  {
+    slug: 'kitchen-os',
+    name: 'TRANST Kitchen OS',
+    category: 'operations',
+    featured: false,
+    summary:
+      'Commercial kitchen operations: a dashboard, costs and a draft purchase list, delivery-order scheduling for virtual brands, nutrition checks and production planning.',
+    description:
+      'TRANST Kitchen OS builds on KitchenMind AI to cover more of a commercial kitchen’s day: what to prep, what to buy, which delivery orders are at risk, which dishes match a personal food profile, and how to plan layered portions. Every figure comes from the kitchen’s own data, and every estimate is labelled as one.',
+    capabilities: [
+      {
+        title: 'Operations dashboard',
+        text: 'Portions sold, stock alerts, estimated waste cost and the day’s prep priorities on one screen. A day without imported sales shows “No data”, never zero.',
+      },
+      {
+        title: 'Costs and purchasing',
+        text: 'Optional costs per ingredient feed waste-cost estimates and a draft purchase list for a delivery date, worked out from prep needs, usable stock and minimum levels. Nothing is ordered automatically.',
+      },
+      {
+        title: 'Delivery orders',
+        text: 'Orders for several virtual brands share the kitchen’s equipment. A rule-based schedule estimates when each step runs and flags orders at risk of missing pickup, with the reason.',
+      },
+      {
+        title: 'Nutrition suggestions',
+        text: 'Each member can keep a private food profile and see which dishes conflict with it, can’t be fully checked, or have no conflicts, using the 14 major allergens. Informational only, never medical advice.',
+      },
+      {
+        title: 'Production planning',
+        text: 'Plan layered, customised portions from production recipes, with grams per layer, totals, timings and an illustrative preview. A software simulation: no equipment is connected.',
+      },
+      {
+        title: 'Everything in KitchenMind AI',
+        text: 'Stock batches with expiry dates, recipes, CSV or typed-in sales, waste logging, sales forecasts, prep plans and team roles.',
+      },
+    ],
+    benefits: [
+      'Prep, purchasing, orders and waste in one place, from the kitchen’s own data',
+      'Rules shown on screen, and every estimate labelled as one',
+      'Delivery orders at risk of missing pickup flagged, with the reason',
+      'Food profiles that only their owner can see, and can delete',
+    ],
+    architecture: [
+      {
+        id: 'kitchen-data',
+        label: 'Stock, sales and costs',
+        layer: 'input',
+        text: 'Deliveries with expiry dates, stock counts, ingredient costs, and sales from a CSV file or typed in.',
+      },
+      {
+        id: 'orders',
+        label: 'Delivery orders',
+        layer: 'input',
+        text: 'Typed in per virtual brand, with pickup times. No delivery app is connected.',
+      },
+      {
+        id: 'menu',
+        label: 'Menu details',
+        layer: 'input',
+        text: 'Recipes, prep steps per piece of equipment, and allergens, diet and nutrition values per ingredient.',
+      },
+      {
+        id: 'planning',
+        label: 'Stock and planning',
+        layer: 'core',
+        text: 'Batches used earliest-expiry first, forecasts from past sales, prep plans and the purchase list.',
+      },
+      {
+        id: 'scheduler',
+        label: 'Order scheduler',
+        layer: 'core',
+        text: 'Works out a rule-based schedule across shared equipment on every request, and explains each risk.',
+      },
+      {
+        id: 'rules',
+        label: 'Nutrition and production rules',
+        layer: 'core',
+        text: 'Checks dishes against a private food profile and works out layered portion plans, using recorded data only.',
+      },
+      {
+        id: 'dashboard',
+        label: 'Dashboard and purchase list',
+        layer: 'output',
+        text: 'The day’s figures, stock alerts, prep priorities, and a purchase list to copy or print for the supplier.',
+      },
+      {
+        id: 'queue',
+        label: 'Order queue and schedule',
+        layer: 'output',
+        text: 'Open orders by status, most at risk first, and the schedule by equipment or by order.',
+      },
+      {
+        id: 'jobs',
+        label: 'Suggestions and production jobs',
+        layer: 'output',
+        text: 'Dishes checked against a profile, and production jobs from planned to completed.',
+      },
+    ],
+    useCases: [
+      {
+        title: 'Cloud kitchen with several brands',
+        text: 'Take orders for each brand, see which ones are waiting for the same oven, and move a step forward with “Do next” when an order is at risk.',
+      },
+      {
+        title: 'Restaurant planning tomorrow',
+        text: 'Check prep priorities and stock alerts on the dashboard, then copy the draft purchase list for the supplier.',
+      },
+    ],
+    stack: ['React', 'Vite', 'Framer Motion', 'Django REST Framework', 'PostgreSQL', 'Docker'],
+    // The repository is private, so there is no public source link.
+  },
+
   // Source: github.com/shibinputhramannil/transtkitchen (README and code)
   {
     slug: 'kitchenmind-ai',
