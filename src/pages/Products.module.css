@@ -105,7 +105,7 @@
   /* wide cards get a shorter visual so the text stays close to the top */
   .grid > * {
     --card-visual-ratio: 2 / 1;
-    --card-glyph-size: 38%;
+    --card-glyph-size: 50%;
   }
   .grid[data-count='3'] > *,
   .grid[data-count='6'] > *,
@@ -113,7 +113,7 @@
   .grid[data-count='5'] > :nth-child(n + 3) {
     grid-column: span 2;
     --card-visual-ratio: 16 / 10;
-    --card-glyph-size: 46%;
+    --card-glyph-size: 56%;
   }
 }
 
@@ -121,7 +121,7 @@
   .grid[data-odd] > :last-child {
     grid-column: 1 / -1;
     --card-visual-ratio: 3 / 1;
-    --card-glyph-size: 24%;
+    --card-glyph-size: 31%;
   }
 }
 

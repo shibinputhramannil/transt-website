@@ -56,7 +56,7 @@
 }
 
 .glyph {
-  width: var(--card-glyph-size, 46%);
+  width: var(--card-glyph-size, 56%);
   aspect-ratio: 1;
   position: relative;
   z-index: 1;

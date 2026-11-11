@@ -1,0 +1,190 @@
+/* Product scenes: line drawings in the existing TRANST palette only (tokens.css). */
+
+.svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* structure */
+.dash {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+.hair {
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+
+.panel {
+  fill: var(--cream);
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+
+.card {
+  fill: var(--cream);
+  stroke: var(--forest);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.stroke {
+  fill: none;
+  stroke: var(--forest);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.lineSoft {
+  fill: none;
+  stroke: var(--forest-300);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+}
+
+.link {
+  fill: none;
+  stroke: var(--forest-300);
+  stroke-width: 1.4;
+}
+
+/* bars: width is set per bar */
+.barForest,
+.barPeach,
+.barSoft {
+  fill: none;
+}
+
+.barForest {
+  stroke: var(--forest);
+}
+
+.barPeach {
+  stroke: var(--peach-600);
+}
+
+.barSoft {
+  stroke: var(--forest-300);
+}
+
+.level,
+.scan {
+  fill: none;
+  stroke: var(--peach-600);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+/* nodes and icons */
+.node {
+  fill: var(--cream);
+  stroke: var(--forest);
+  stroke-width: 1.6;
+}
+
+.nodeOn {
+  fill: var(--forest);
+  stroke: var(--forest);
+  stroke-width: 1.6;
+}
+
+.icon,
+.iconOn {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon {
+  stroke: var(--forest);
+}
+
+.iconOn {
+  stroke: var(--cream);
+}
+
+.trail {
+  fill: none;
+  stroke: var(--forest);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.dot {
+  fill: var(--peach);
+  stroke: var(--forest);
+  stroke-width: 1.4;
+}
+
+/* fills */
+.soft {
+  fill: var(--forest-100);
+  stroke: var(--forest-300);
+  stroke-width: 1;
+}
+
+.warm {
+  fill: var(--peach);
+  stroke: var(--peach-600);
+  stroke-width: 1;
+}
+
+.forest {
+  fill: var(--forest);
+}
+
+.highlight {
+  fill: var(--peach);
+}
+
+.dotWarm {
+  fill: var(--peach-600);
+}
+
+.dotSoft {
+  fill: var(--forest-300);
+}
+
+.flag {
+  fill: var(--forest-300);
+  stroke: var(--forest-300);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+
+.flagRisk {
+  fill: var(--peach-600);
+  stroke: var(--peach-600);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+
+.creamMark {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* text */
+.label {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
+  fill: var(--forest);
+  text-anchor: middle;
+}
+
+.quote {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  fill: var(--peach-600);
+}

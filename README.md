@@ -61,6 +61,7 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
 | Homepage particle sphere (count, colours, motion) | `src/components/ai/ParticleSphere.jsx` |
 | Hero aurora light | `src/components/ai/Aurora.jsx` |
 | Diagram sphere nodes (Services, CTA bands, 404) | `DEFAULT_NODES` in `src/components/ai/AICircle.jsx` |
+| Product illustrations (cards and product pages) | `src/components/products/art/` (one scene per product, registered by slug in `ProductArt.jsx`) |
 | Social share image | `public/og-image.png` (1200×630) |
 | Production domain | `VITE_SITE_URL` (`.env.production` or host settings), validated by `src/data/siteUrl.js` |
 
@@ -86,6 +87,14 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
 - KitchenMind AI also runs on Render (`kitchenmind-web.onrender.com`, free plan). The site does not link to it, because the free database expires and has no backups. Add a link only once it is on a paid plan.
 - **Kitchen OS** started as a copy of KitchenMind AI and adds a dashboard, costs and a draft purchase list, delivery orders, nutrition suggestions and simulated production planning. Its page says it builds on KitchenMind AI, and keeps the app's own wording: estimates are labelled as estimates, nutrition is informational only, and production planning is a simulation. It runs on AWS; the site does not link to the app.
 - **Catalog layout:** the grid places cards two or three to a row depending on how many are shown, so no card sits alone on a row (see `.grid` in `Products.module.css`).
+- **Product illustrations:** each product has its own line drawing (`src/components/products/art/`), drawn only in the existing palette. On a card it plays a three-second story on hover or keyboard focus, and on touch screens when the card is in the middle of the screen. On the product page it replays slowly while the hero is visible (about every 6.6 s) and stops off-screen. Under reduced motion it stays still. Each story shows only what the product really does:
+  - **ERP:** a sale goes Lead → Order → Invoice → Payment, then debits and credits balance.
+  - **Kitchen OS:** an order at risk of missing pickup turns peach, and "Do next" moves it ahead.
+  - **KitchenMind AI:** recent same-weekday sales give the forecast plus a buffer, and the earliest-expiring batch is used first.
+  - **E-Commerce:** the product goes into the cart, stock drops by one, and the receipt prints (no payment step).
+  - **CoreKnowledge:** passages are found and quoted in a cited answer.
+
+  A product without a scene of its own gets the generated emblem (`ProductGlyph`). To add a scene, follow the note at the top of `ProductArt.jsx`.
 
 ### Contact form
 
@@ -109,7 +118,7 @@ src/
     layout/            Header (+ modal mobile menu), Footer, PageHero, PageTransition (route focus)
     home/              homepage sections
     services/          ServiceDiagram — five animated technical diagrams
-    products/          ProductCard, ProductGlyph, ProductVisual, ArchitectureDiagram
+    products/          ProductCard, ProductGlyph, ProductVisual, ArchitectureDiagram, art/ (product scenes)
     contact/           ContactChannels
     ui/                Button, Reveal, SplitText, SectionHeader, CtaBand
   pages/               Home (eager) · Products, ProductDetail, Services, About, Contact, NotFound (lazy)

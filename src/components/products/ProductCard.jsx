@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import ProductGlyph from './ProductGlyph.jsx';
+import { motion, useInView } from 'framer-motion';
+import ProductArt from './art/ProductArt.jsx';
 import { Arrow } from '../ui/Button.jsx';
 import { categoryLabel, inDevelopment } from '../../data/products.js';
+import useCoarsePointer from '../../hooks/useCoarsePointer.js';
 import { ease } from '../../motion/tokens.js';
 import styles from './ProductCard.module.css';
 
@@ -21,9 +22,17 @@ export function StarBadge({ className = '' }) {
   );
 }
 
-/** Interactive catalog card: cursor spotlight, lift, glyph alignment on hover/focus. */
+/**
+ * Interactive catalog card: cursor spotlight, lift, and the product's illustration playing its
+ * story on hover or keyboard focus. Touch screens have no hover, so there the card nearest the
+ * middle of the screen plays instead.
+ */
 export default function ProductCard({ product }) {
+  const ref = useRef(null);
   const [hover, setHover] = useState(false);
+  const coarse = useCoarsePointer();
+  const centred = useInView(ref, { margin: '-38% 0px -38% 0px' });
+  const active = hover || (coarse && centred);
 
   const onMove = (e) => {
     const r = e.currentTarget.getBoundingClientRect();
@@ -33,6 +42,7 @@ export default function ProductCard({ product }) {
 
   return (
     <motion.article
+      ref={ref}
       layout
       initial={{ opacity: 0, y: 20, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -47,7 +57,7 @@ export default function ProductCard({ product }) {
     >
       <div className={styles.visual}>
         <div className={styles.glyph}>
-          <ProductGlyph seed={product.slug} active={hover} />
+          <ProductArt product={product} active={active} />
         </div>
         {product.featured && <StarBadge className={styles.badgePos} />}
         {inDevelopment(product) && <span className={styles.sample}>In development</span>}

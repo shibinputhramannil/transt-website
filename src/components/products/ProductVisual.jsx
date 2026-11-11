@@ -1,10 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
-import ProductGlyph from './ProductGlyph.jsx';
+import ProductArt from './art/ProductArt.jsx';
 import styles from './ProductVisual.module.css';
 
+// While the hero is on screen its illustration replays slowly: the story plays and holds, then
+// rests, about every 6.6 s (ambient loops stay at 6 s or slower and stop off-screen).
+const PLAY_MS = 5200;
+const REST_MS = 1400;
+
 /**
- * Product hero visual: the product's glyph on a tilting glass stage, orbited by
+ * Product hero visual: the product's illustration on a tilting glass stage, orbited by
  * capability chips. Tilts toward the pointer on desktop; static under reduced motion.
  */
 export default function ProductVisual({ product }) {
@@ -21,9 +26,19 @@ export default function ProductVisual({ product }) {
   const rotateX = useTransform(sy, [-1, 1], [8, -8]);
 
   useEffect(() => {
-    if (reduce || !inView) return undefined;
-    const t = setInterval(() => setPulse((p) => !p), 2600);
-    return () => clearInterval(t);
+    if (reduce || !inView) {
+      setPulse(false);
+      return undefined;
+    }
+    let on = false;
+    let timer;
+    const tick = () => {
+      on = !on;
+      setPulse(on);
+      timer = setTimeout(tick, on ? PLAY_MS : REST_MS);
+    };
+    timer = setTimeout(tick, 600);
+    return () => clearTimeout(timer);
   }, [reduce, inView]);
 
   const onMove = (e) => {
@@ -38,9 +53,10 @@ export default function ProductVisual({ product }) {
   };
 
   const chips = product.capabilities.slice(0, 3).map((c) => c.title);
+  // Chips sit around the rim, clear of the illustration in the middle.
   const chipPos = [
     { left: '-4%', top: '14%' },
-    { right: '-6%', top: '42%' },
+    { right: '-6%', top: '3%' },
     { left: '6%', bottom: '8%' },
   ];
 
@@ -50,7 +66,7 @@ export default function ProductVisual({ product }) {
         <div className={styles.plate} />
         <div className={styles.ring} />
         <div className={styles.glyph}>
-          <ProductGlyph seed={product.slug} active={pulse} />
+          <ProductArt product={product} active={pulse} />
         </div>
         {chips.map((c, i) => (
           <motion.span
