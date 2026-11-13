@@ -5,6 +5,7 @@ import KitchenOsScene from './KitchenOsScene.jsx';
 import KitchenMindScene from './KitchenMindScene.jsx';
 import CommerceScene from './CommerceScene.jsx';
 import KnowledgeScene from './KnowledgeScene.jsx';
+import GoFreeScene from './GoFreeScene.jsx';
 
 /**
  * Product illustration for catalog cards and product pages, chosen by slug.
@@ -23,6 +24,7 @@ const SCENES = {
   'kitchenmind-ai': KitchenMindScene,
   ecommerce: CommerceScene,
   coreknowledge: KnowledgeScene,
+  gofree: GoFreeScene,
 };
 
 export default function ProductArt({ product, active = false }) {

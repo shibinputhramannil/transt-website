@@ -42,7 +42,7 @@ export default function Products() {
       <PageHero
         eyebrow="Products"
         title="Products built by *TRANST.*"
-        lead="Software for running a business, a kitchen and an online store, and for finding answers in your own documents. Filter by category or open a product for details."
+        lead="Software for running a business, a kitchen and an online store, for finding answers in your own documents, and for catching the right bus in Kerala. Filter by category or open a product for details."
         compact
       />
 

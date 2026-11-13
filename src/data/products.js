@@ -30,6 +30,7 @@ export const categories = [
   { id: 'operations', label: 'Business Operations' },
   { id: 'commerce', label: 'E-Commerce' },
   { id: 'knowledge', label: 'Knowledge Management' },
+  { id: 'transport', label: 'Transport' },
 ];
 
 export const products = [
@@ -535,6 +536,121 @@ export const products = [
       },
     ],
     stack: ['React', 'Vite', 'Material UI', 'Django REST Framework', 'Celery', 'PostgreSQL + pgvector', 'Redis'],
+    // The repository is private, so there is no public source link.
+  },
+
+  // Source: the private GoFree repository (README and code, main branch). GoFree never shows a
+  // position it doesn't have: a bus is LIVE only when a passenger or an operator's GPS device shares
+  // it, otherwise it is a scheduled estimate. Fares are estimates, timetables come from public
+  // sources, and alerts work while the app is open. Keep that wording here.
+  {
+    slug: 'gofree',
+    name: 'GoFree',
+    category: 'transport',
+    featured: false,
+    summary:
+      'Kerala bus timings for KSRTC and private buses: journeys between any two places, estimated fares, route maps, and live positions shared by passengers.',
+    description:
+      'GoFree by TRANST finds KSRTC and private bus services between any two places in Kerala, from big bus stands to village landmarks, with times, an estimated fare, every stop and a road map. A bus is shown as live only when someone on it, or its operator’s GPS, shares its position.',
+    capabilities: [
+      {
+        title: 'Journey search',
+        text: 'From any place to any other, with an optional via: bus stands, towns, villages and landmarks, in English or Malayalam. Direct buses and journeys with one change. Search runs on the phone and works offline.',
+      },
+      {
+        title: 'Bus details and fares',
+        text: 'Operator, bus type, departure and arrival times, every stop and a road-following route map, with a fare estimated from KSRTC’s published per-km rates.',
+      },
+      {
+        title: 'Live map',
+        text: 'Buses around you and buses coming to your stop. Each is marked LIVE when a passenger or the operator’s GPS shares its position, or as a scheduled estimate from the timetable.',
+      },
+      {
+        title: 'I’m on this bus',
+        text: 'Your phone’s GPS follows the bus along its route: next stop, distance and time to your stop, how late it is running, and an alarm before you get down.',
+      },
+      {
+        title: 'Alerts and reports',
+        text: 'A heads-up about five minutes before a bus reaches your stop while the app is open, and passenger reports on crowding and delays, shown as reports rather than facts.',
+      },
+      {
+        title: 'Installable app',
+        text: 'Installs from the browser on phones and laptops, keeps working offline once loaded, with dark mode, an English or Malayalam interface, and optional Google sign-in to sync saved routes.',
+      },
+    ],
+    benefits: [
+      'KSRTC and private buses in one search',
+      'Never calls a position live unless real GPS is being shared',
+      'Route search keeps working without a connection once the app is loaded',
+      'Everything works without an account; signing in only syncs your settings',
+    ],
+    architecture: [
+      {
+        id: 'timetables',
+        label: 'Timetables and places',
+        layer: 'input',
+        text: 'KSRTC and private bus timetables from public sources, and OpenStreetMap places and landmarks across Kerala.',
+      },
+      {
+        id: 'gps',
+        label: 'Rider and operator GPS',
+        layer: 'input',
+        text: 'Passengers on a bus who choose to share their location, and GPS devices registered by bus operators.',
+      },
+      {
+        id: 'reports',
+        label: 'Passenger reports',
+        layer: 'input',
+        text: 'Crowding, delays, sightings and timetable corrections reported by riders.',
+      },
+      {
+        id: 'search',
+        label: 'On-phone search',
+        layer: 'core',
+        text: 'Finds direct and one-change journeys in a background worker on the phone, so search works offline.',
+      },
+      {
+        id: 'tracking',
+        label: 'Live tracking service',
+        layer: 'core',
+        text: 'Checks every GPS fix, matches it to the bus’s road route, combines riders on the same bus, and works out which buses are coming to your stop.',
+      },
+      {
+        id: 'fares',
+        label: 'Fare estimate',
+        layer: 'core',
+        text: 'KSRTC’s published per-km rates by service class, applied to the road distance between your stops.',
+      },
+      {
+        id: 'journeys',
+        label: 'Journeys and fares',
+        layer: 'output',
+        text: 'Buses with times, every stop, a route map and an estimated fare.',
+      },
+      {
+        id: 'map',
+        label: 'Live map and alerts',
+        layer: 'output',
+        text: 'Buses around you, each labelled live or scheduled estimate, and alerts before a bus reaches your stop.',
+      },
+      {
+        id: 'pages',
+        label: 'Timetable pages',
+        layer: 'output',
+        text: 'Public bus-timing pages between towns that search engines can read.',
+      },
+    ],
+    useCases: [
+      {
+        title: 'Daily commute',
+        text: 'Save your Home and Work stops, see the next buses on your commute, and get a heads-up before your bus reaches the stop.',
+      },
+      {
+        title: 'A trip to a new town',
+        text: 'Find a direct bus or one with a change, check the stops and the estimated fare, and get an alarm before your stop while riding.',
+      },
+    ],
+    stack: ['React', 'TypeScript', 'Vite', 'MapLibre GL', 'Leaflet', 'Django REST Framework'],
     // The repository is private, so there is no public source link.
   },
 ];

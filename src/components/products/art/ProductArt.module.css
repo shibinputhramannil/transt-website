@@ -174,12 +174,49 @@
   stroke-linejoin: round;
 }
 
+/* map roads (GoFree) */
+.roadEdge,
+.road {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.roadEdge {
+  stroke: var(--line-strong);
+  stroke-width: 17;
+}
+
+.road {
+  stroke: var(--cream);
+  stroke-width: 14;
+}
+
+.creamFill {
+  fill: var(--cream);
+}
+
+.cardDashed {
+  fill: var(--cream);
+  stroke: var(--forest);
+  stroke-width: 1.4;
+  stroke-dasharray: 2.5 2;
+}
+
 /* text */
 .label {
   font-family: var(--font-mono);
   font-size: 8.5px;
   letter-spacing: 0.04em;
   fill: var(--forest);
+  text-anchor: middle;
+}
+
+.labelOn {
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.08em;
+  fill: var(--cream);
   text-anchor: middle;
 }
 

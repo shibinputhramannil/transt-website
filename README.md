@@ -13,7 +13,7 @@ npm run preview    # serve dist/ at http://localhost:4173
 
 - [x] **Production domain.** On Vercel, `VITE_SITE_URL` is `https://transt-website.vercel.app` (Production environment). Change it and redeploy when a custom domain is added (see Deploying).
 - [ ] **WhatsApp country code.** The number was supplied as `8590675644` without a country code, and `+91` (India) is assumed. Confirm it, or correct it in `src/data/contact.js`.
-- [x] **Real products.** The catalog lists the five TRANST products (see Products below).
+- [x] **Real products.** The catalog lists the six TRANST products (see Products below).
 - [ ] **Contact backend (optional).** The form only hands messages to WhatsApp or email; nothing is submitted to a server.
 
 ## Deploying
@@ -69,7 +69,7 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
 
 ### Products
 
-`products.js` lists the five TRANST products. Every statement comes from the product's own repository (README and docs, checked against the code):
+`products.js` lists the six TRANST products. Every statement comes from the product's own repository (README and docs, checked against the code):
 
 | Product | Page | Category | Repository |
 | --- | --- | --- | --- |
@@ -78,6 +78,7 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
 | KitchenMind AI | `/products/kitchenmind-ai` | Business Operations | [transtkitchen](https://github.com/shibinputhramannil/transtkitchen) (public) |
 | TRANST E-Commerce | `/products/ecommerce` | E-Commerce | [transt-ecommerce](https://github.com/shibinputhramannil/transt-ecommerce) (public) |
 | CoreKnowledge | `/products/coreknowledge` | Knowledge Management | private repository (no source link) |
+| GoFree | `/products/gofree` | Transport | private repository (no source link) |
 
 - **CoreKnowledge** is built (phases 1–5, on the repository's `phases-2-5` branch) and runs as a private pilot. **No AI model is connected yet:** a built-in provider quotes the documents. The app says so, and so does the website (the "Answers with citations" capability and the "Answer service" node). Update those two texts when a model is connected.
 - **Products that aren't finished:** `status: 'in-development'` with a `statusNote` adds an **In development** tag and notice, and offers **Ask about it** instead of a demo request. `planned: true` on a capability or architecture node adds a **Planned** tag. No product uses either today.
@@ -93,6 +94,7 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
   - **KitchenMind AI:** recent same-weekday sales give the forecast plus a buffer, and the earliest-expiring batch is used first.
   - **E-Commerce:** the product goes into the cart, stock drops by one, and the receipt prints (no payment step).
   - **CoreKnowledge:** passages are found and quoted in a cited answer.
+  - **GoFree:** a bus drawn as a dashed scheduled estimate turns LIVE when a passenger shares GPS, drives toward your stop, and the stop alert rings. The page keeps the app's rules: positions are live only from real GPS, fares are estimates, timetables come from public sources, and alerts work while the app is open.
 
   A product without a scene of its own gets the generated emblem (`ProductGlyph`). To add a scene, follow the note at the top of `ProductArt.jsx`.
 

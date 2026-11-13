@@ -11,11 +11,13 @@ const BACK = { duration: 0.35, ease: ease.out };
  * When the scene goes idle again, everything eases back to its idle value.
  *
  *   <motion.path {...cue(active, { pathLength: { idle: 1, points: [[0.4, 0], [1.0, 1]] } })} />
+ *
+ * Each step eases in and out; pass `ease: 'linear'` for steady movement along a path.
  */
 export function cue(active, props) {
   const animate = {};
   const transition = {};
-  for (const [key, { idle, points }] of Object.entries(props)) {
+  for (const [key, { idle, points, ease: stepEase = ease.inOut }] of Object.entries(props)) {
     if (!active || !points?.length) {
       animate[key] = idle;
       transition[key] = BACK;
@@ -24,7 +26,7 @@ export function cue(active, props) {
     const end = Math.max(points[points.length - 1][0], 0.01);
     const timed = points[0][0] > 0 ? [[0, points[0][1]], ...points] : points;
     animate[key] = timed.map(([, v]) => v);
-    transition[key] = { duration: end, times: timed.map(([t]) => t / end), ease: ease.inOut };
+    transition[key] = { duration: end, times: timed.map(([t]) => t / end), ease: stepEase };
   }
   return { initial: false, animate, transition };
 }
