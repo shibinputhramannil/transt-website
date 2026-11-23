@@ -13,8 +13,9 @@
  *  name          Product name
  *  category      One of the `categories` ids below
  *  featured      true → star badge on the catalog, sorted first (catalog only — never the homepage)
- *  status        Optional. 'in-development' for a product whose main features are not built yet:
- *                its card and page say so, and it offers "Ask about it" instead of a demo.
+ *  status        Optional; see STATUSES below. Its label shows on the card and the product page.
+ *                'pilot': built and demonstrable, but not yet a general release (offers a demo).
+ *                'in-development': main features not built yet (offers "Ask about it" instead).
  *  statusNote    Required with `status`: what exists today and what does not.
  *  summary       One sentence for cards and the page's meta description
  *  description   One or two sentences for the detail hero
@@ -653,9 +654,115 @@ export const products = [
     stack: ['React', 'TypeScript', 'Vite', 'MapLibre GL', 'Leaflet', 'Django REST Framework'],
     // The repository is private, so there is no public source link.
   },
+
+  // Source: the private Invoice Intake repository (README and code, main branch). A pilot build:
+  // verified locally, not deployed, not production-ready, not yet approved for real customer
+  // documents. Demo extraction is rule-based (not AI); the Anthropic AI mode has never been called
+  // live and is enabled only after a supervised test and the customer's written approval.
+  {
+    slug: 'invoice-intake',
+    name: 'TRANST Invoice Intake',
+    category: 'operations',
+    featured: false,
+    status: 'pilot',
+    statusNote:
+      'A pilot build for one customer, verified on a local installation and not yet deployed. It runs in demo mode with fictional sample invoices until the customer’s pilot decisions are recorded, and it is not yet approved for real customer documents.',
+    summary:
+      'Invoice data entry with a person in control: upload supplier invoices, check the extracted fields against the document, approve or reject, and export to CSV.',
+    description:
+      'TRANST Invoice Intake reads supplier invoices into nine fields, shows them beside the document for a person to check, and lets only approved invoices out as CSV. It never fills in a value that is not printed on the invoice.',
+    capabilities: [
+      {
+        title: 'Field extraction',
+        text: 'Supplier, invoice number, dates, currency, subtotal, tax, total and PO number from PDF, PNG or JPG invoices. In the demo a rule-based reader handles simple text PDFs; it is not AI.',
+      },
+      {
+        title: 'Side-by-side review',
+        text: 'The document and its fields sit side by side. Missing or uncertain values are flagged and block approval until a person confirms, corrects or leaves them blank. Ambiguous dates are never guessed.',
+      },
+      {
+        title: 'Approve, reject, export',
+        text: 'Finance approvers approve or reject each invoice, with warnings when totals don’t add up or a duplicate is suspected, and export the approved invoices as CSV.',
+      },
+      {
+        title: 'Roles and two-step sign-in',
+        text: 'Every user signs in with a password and an authenticator-app code. Three roles are enforced by the server, and nobody can both process and approve invoices.',
+      },
+      {
+        title: 'Full audit trail',
+        text: 'Every upload, edit, check, status change, export and deletion is recorded with who did it and in which role.',
+      },
+      {
+        title: 'Pilot report',
+        text: 'Volume, corrections, exception rate, approval status and elapsed times, each labelled as recorded, derived or an estimate.',
+      },
+    ],
+    benefits: [
+      'A person checks every invoice before it is approved',
+      'Never fills in a value that is not on the document',
+      'The processor and the approver are always different people',
+      'Shows exactly where each document was processed',
+    ],
+    architecture: [
+      {
+        id: 'invoices',
+        label: 'Supplier invoices',
+        layer: 'input',
+        text: 'PDF, PNG or JPG files uploaded by an invoice processor.',
+      },
+      {
+        id: 'users',
+        label: 'Named users',
+        layer: 'input',
+        text: 'Accounts created by the operator, signing in with a password and an authenticator code.',
+      },
+      {
+        id: 'extraction',
+        label: 'Extraction',
+        layer: 'core',
+        text: 'A rule-based demo reader by default, which keeps every document on the server. An AI mode sends the file to Anthropic’s API, and is switched on only after a supervised test and the customer’s written approval.',
+      },
+      {
+        id: 'rules',
+        label: 'Review rules',
+        layer: 'core',
+        text: 'Server-side checks on required fields, uncertain values, totals, dates and duplicates, plus a role check on every request.',
+      },
+      {
+        id: 'csv',
+        label: 'Approved CSV',
+        layer: 'output',
+        text: 'Approved invoices exported for the finance process, with formula-like text neutralised.',
+      },
+      {
+        id: 'audit',
+        label: 'Audit log and pilot report',
+        layer: 'output',
+        text: 'Who did what and in which role, and pilot figures with their definitions.',
+      },
+    ],
+    useCases: [
+      {
+        title: 'Accounts payable team',
+        text: 'Processors upload and check supplier invoices; a finance approver approves them and exports the CSV for the finance process.',
+      },
+      {
+        title: 'A measured pilot',
+        text: 'Run a controlled pilot with named users and see volume, corrections and exception rates before deciding on wider use.',
+      },
+    ],
+    stack: ['React', 'Vite', 'Django REST Framework', 'django-otp', 'SQLite'],
+    // The repository is private, so there is no public source link.
+  },
 ];
 
 export const productBySlug = (slug) => products.find((p) => p.slug === slug);
 export const categoryLabel = (id) => categories.find((c) => c.id === id)?.label ?? id;
-/** True for a product whose main features are not built yet (see `status` above). */
-export const inDevelopment = (product) => product?.status === 'in-development';
+/** Product statuses: the label shown on the card and page, and whether a demo can be requested. */
+export const STATUSES = {
+  pilot: { label: 'Pilot', demo: true },
+  'in-development': { label: 'In development', demo: false },
+};
+export const statusOf = (product) => STATUSES[product?.status] ?? null;
+/** False only for products whose status rules out a demo (in development). */
+export const offersDemo = (product) => statusOf(product)?.demo ?? true;

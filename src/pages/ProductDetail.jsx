@@ -7,7 +7,7 @@ import { RevealGroup, RevealItem, Reveal } from '../components/ui/Reveal.jsx';
 import Button from '../components/ui/Button.jsx';
 import CtaBand from '../components/ui/CtaBand.jsx';
 import NotFound from './NotFound.jsx';
-import { productBySlug, categoryLabel, inDevelopment } from '../data/products.js';
+import { productBySlug, categoryLabel, statusOf, offersDemo } from '../data/products.js';
 import { whatsappLink } from '../data/site.js';
 import useSeo from '../hooks/useSeo.js';
 import { productMeta } from '../data/seo.js';
@@ -23,7 +23,9 @@ export default function ProductDetail() {
   useSeo(productMeta(product));
   if (!product) return <NotFound />;
 
-  const developing = inDevelopment(product);
+  const status = statusOf(product);
+  const demo = offersDemo(product);
+  const hasPlanned = product.capabilities.some((c) => c.planned) || product.architecture.some((n) => n.planned);
   const demoTo = `/contact?intent=demo&product=${encodeURIComponent(product.slug)}#enquiry`;
   const interestTo = `/contact?intent=interest&product=${encodeURIComponent(product.slug)}#enquiry`;
 
@@ -41,17 +43,23 @@ export default function ProductDetail() {
         lead={product.description}
         visual={<ProductVisual product={product} />}
       >
-        {developing && (
+        {status && (
           <div className={styles.notice} role="note">
-            <span className="t-mono">In development</span>
+            <span className="t-mono">{status.label}</span>
             <p>
-              {product.statusNote} Everything marked <strong>Planned</strong> on this page describes the product as it
-              is designed, not features you can use today.
+              {product.statusNote}
+              {hasPlanned && (
+                <>
+                  {' '}
+                  Everything marked <strong>Planned</strong> on this page describes the product as it is designed, not
+                  features you can use today.
+                </>
+              )}
             </p>
           </div>
         )}
         <div className={styles.ctas}>
-          {developing ? <Button to={interestTo}>Ask about {product.name}</Button> : <Button to={demoTo}>Request a demo</Button>}
+          {demo ? <Button to={demoTo}>Request a demo</Button> : <Button to={interestTo}>Ask about {product.name}</Button>}
           <Button to="/products" variant="secondary">
             All products
           </Button>
@@ -151,7 +159,7 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {developing ? (
+      {!demo ? (
         <CtaBand
           eyebrow="In development"
           title={`Interested in *${product.name}?*`}

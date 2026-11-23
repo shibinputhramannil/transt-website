@@ -1,4 +1,4 @@
-import { products, categories } from './products.js';
+import { products, categories, STATUSES } from './products.js';
 
 /**
  * Development-only sanity check for src/data/products.js.
@@ -27,7 +27,7 @@ export default function validateProducts() {
     } else if (!['input', 'core', 'output'].every((l) => p.architecture.some((n) => n.layer === l))) {
       problems.push(`${at}: architecture should have at least one input, core and output node`);
     }
-    if (p.status !== undefined && p.status !== 'in-development') problems.push(`${at}: status must be 'in-development' or left out`);
+    if (p.status !== undefined && !STATUSES[p.status]) problems.push(`${at}: status must be one of ${Object.keys(STATUSES).join(', ')}, or left out`);
     if (p.status && !isText(p.statusNote)) problems.push(`${at}: statusNote is required when status is set`);
     if (p.stack !== undefined && (!Array.isArray(p.stack) || !p.stack.every(isText))) problems.push(`${at}: stack must be a list of strings`);
     if (p.source !== undefined && !/^https:\/\/\S+$/.test(p.source)) problems.push(`${at}: source must be an https URL`);

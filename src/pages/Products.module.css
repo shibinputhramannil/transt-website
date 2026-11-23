@@ -85,10 +85,10 @@
 }
 
 /*
- * Six tracks, so cards can sit two or three to a row depending on how many are shown
- * (data-count / data-odd / data-many are set in Products.jsx). No card is left alone on a row:
- *   desktop  1, 2, 4 → two to a row · 3, 6, 7+ → three to a row · 5 → two wide, then three
- *   tablet   two to a row; an odd last card takes the whole row
+ * Six tracks, so cards can sit two or three to a row, and no card is left alone on a row:
+ *   desktop  each card's data-size (from rowPlan() in Products.jsx): 'half' = two to a row,
+ *            'third' = three to a row
+ *   tablet   two to a row; an odd last card takes the whole row (data-odd)
  *   phone    one to a row
  */
 .grid {
@@ -107,10 +107,7 @@
     --card-visual-ratio: 2 / 1;
     --card-glyph-size: 50%;
   }
-  .grid[data-count='3'] > *,
-  .grid[data-count='6'] > *,
-  .grid[data-many] > *,
-  .grid[data-count='5'] > :nth-child(n + 3) {
+  .grid > [data-size='third'] {
     grid-column: span 2;
     --card-visual-ratio: 16 / 10;
     --card-glyph-size: 56%;

@@ -13,7 +13,7 @@ npm run preview    # serve dist/ at http://localhost:4173
 
 - [x] **Production domain.** On Vercel, `VITE_SITE_URL` is `https://transt-website.vercel.app` (Production environment). Change it and redeploy when a custom domain is added (see Deploying).
 - [ ] **WhatsApp country code.** The number was supplied as `8590675644` without a country code, and `+91` (India) is assumed. Confirm it, or correct it in `src/data/contact.js`.
-- [x] **Real products.** The catalog lists the six TRANST products (see Products below).
+- [x] **Real products.** The catalog lists the seven TRANST products (see Products below).
 - [ ] **Contact backend (optional).** The form only hands messages to WhatsApp or email; nothing is submitted to a server.
 
 ## Deploying
@@ -69,7 +69,7 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
 
 ### Products
 
-`products.js` lists the six TRANST products. Every statement comes from the product's own repository (README and docs, checked against the code):
+`products.js` lists the seven TRANST products. Every statement comes from the product's own repository (README and docs, checked against the code):
 
 | Product | Page | Category | Repository |
 | --- | --- | --- | --- |
@@ -79,15 +79,21 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
 | TRANST E-Commerce | `/products/ecommerce` | E-Commerce | [transt-ecommerce](https://github.com/shibinputhramannil/transt-ecommerce) (public) |
 | CoreKnowledge | `/products/coreknowledge` | Knowledge Management | private repository (no source link) |
 | GoFree | `/products/gofree` | Transport | private repository (no source link) |
+| TRANST Invoice Intake | `/products/invoice-intake` | Business Operations (Pilot) | private repository (no source link) |
 
 - **CoreKnowledge** is built (phases 1–5, on the repository's `phases-2-5` branch) and runs as a private pilot. **No AI model is connected yet:** a built-in provider quotes the documents. The app says so, and so does the website (the "Answers with citations" capability and the "Answer service" node). Update those two texts when a model is connected.
-- **Products that aren't finished:** `status: 'in-development'` with a `statusNote` adds an **In development** tag and notice, and offers **Ask about it** instead of a demo request. `planned: true` on a capability or architecture node adds a **Planned** tag. No product uses either today.
+- **Product status** (`status` plus a `statusNote`; labels in `STATUSES` in `products.js`) adds a tag on the card and a notice on the page:
+  - `'pilot'`: built and demonstrable, but not a general release. It still offers a demo request. **Invoice Intake** uses it.
+  - `'in-development'`: the main features are not built yet. It offers **Ask about it** instead of a demo request.
+
+  `planned: true` on a capability or architecture node adds a **Planned** tag (no product uses it today).
+- **Invoice Intake** is a pilot build for one customer: verified locally, not deployed, not production-ready, and not yet approved for real customer documents. Its page says so. It describes the demo extraction as rule-based (not AI) and states that the AI mode (Anthropic) is enabled only after a supervised test and the customer's written approval.
 - Detail pages show a **Built with** list (`stack`) and, for public repositories, a **View source on GitHub** link (`source`).
 - All product pages and the catalog are indexable and listed in `sitemap.xml`.
 - To change a product, edit its entry; the field reference is at the top of `products.js`. In development the browser console reports missing or malformed fields (`src/data/validateProducts.js`). Set `featured: true` for a star badge on the catalog (never shown on the homepage).
 - KitchenMind AI also runs on Render (`kitchenmind-web.onrender.com`, free plan). The site does not link to it, because the free database expires and has no backups. Add a link only once it is on a paid plan.
 - **Kitchen OS** started as a copy of KitchenMind AI and adds a dashboard, costs and a draft purchase list, delivery orders, nutrition suggestions and simulated production planning. Its page says it builds on KitchenMind AI, and keeps the app's own wording: estimates are labelled as estimates, nutrition is informational only, and production planning is a simulation. It runs on AWS; the site does not link to the app.
-- **Catalog layout:** the grid places cards two or three to a row depending on how many are shown, so no card sits alone on a row (see `.grid` in `Products.module.css`).
+- **Catalog layout:** on desktop, `rowPlan()` in `Products.jsx` sizes each card so rows hold two or three and no card sits alone: 4 → 2+2, 5 → 2+3, 7 → 2+2+3, and so on. Tablets show two to a row, with an odd last card spanning the full width; phones show one. See `.grid` in `Products.module.css`.
 - **Product illustrations:** each product has its own line drawing (`src/components/products/art/`), drawn only in the existing palette. On a card it plays a three-second story on hover or keyboard focus, and on touch screens when the card is in the middle of the screen. On the product page it replays slowly while the hero is visible (about every 6.6 s) and stops off-screen. Under reduced motion it stays still. Each story shows only what the product really does:
   - **ERP:** a sale goes Lead → Order → Invoice → Payment, then debits and credits balance.
   - **Kitchen OS:** an order at risk of missing pickup turns peach, and "Do next" moves it ahead.
@@ -95,6 +101,7 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
   - **E-Commerce:** the product goes into the cart, stock drops by one, and the receipt prints (no payment step).
   - **CoreKnowledge:** passages are found and quoted in a cited answer.
   - **GoFree:** a bus drawn as a dashed scheduled estimate turns LIVE when a passenger shares GPS, drives toward your stop, and the stop alert rings. The page keeps the app's rules: positions are live only from real GPS, fares are estimates, timetables come from public sources, and alerts work while the app is open.
+  - **Invoice Intake:** a scan line reads the invoice and the fields fill in; the uncertain date is flagged until a person confirms it; then the invoice is approved and the CSV goes out.
 
   A product without a scene of its own gets the generated emblem (`ProductGlyph`). To add a scene, follow the note at the top of `ProductArt.jsx`.
 

@@ -6,7 +6,7 @@ import ContactChannels from '../components/contact/ContactChannels.jsx';
 import { Reveal, RevealGroup, RevealItem } from '../components/ui/Reveal.jsx';
 import Button from '../components/ui/Button.jsx';
 import { services, serviceById } from '../data/services.js';
-import { productBySlug, inDevelopment } from '../data/products.js';
+import { productBySlug, offersDemo } from '../data/products.js';
 import { site, mailto, whatsappLink } from '../data/site.js';
 import useSeo from '../hooks/useSeo.js';
 import { pages } from '../data/seo.js';
@@ -30,7 +30,7 @@ function initialFromParams(params) {
   const service = serviceById(params.get('service') ?? '');
   const topic = params.get('topic');
   if (product) {
-    const demo = params.get('intent') === 'demo' && !inDevelopment(product);
+    const demo = params.get('intent') === 'demo' && offersDemo(product);
     const message = demo ? `I'd like to request a demo of ${product.name}.` : `I'd like to know more about ${product.name}.`;
     return { topic: 'products', message: `${message}\n\n` };
   }

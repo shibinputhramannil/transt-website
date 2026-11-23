@@ -9,6 +9,17 @@ import useSeo from '../hooks/useSeo.js';
 import { pages } from '../data/seo.js';
 import styles from './Products.module.css';
 
+/**
+ * Desktop row plan for `n` cards: rows of three, plus one or two rows of two first when the count
+ * isn't a multiple of three, so no card ever sits alone on a row.
+ * 1–2 → halves · 3 → 3 · 4 → 2+2 · 5 → 2+3 · 6 → 3+3 · 7 → 2+2+3 · 8 → 2+3+3 · 9 → 3+3+3 …
+ */
+function rowPlan(n) {
+  if (n <= 2) return Array(n).fill('half');
+  const rowsOfTwo = [0, 2, 1][n % 3];
+  return [...Array(rowsOfTwo * 2).fill('half'), ...Array(n - rowsOfTwo * 2).fill('third')];
+}
+
 export default function Products() {
   useSeo(pages['/products']);
   const [params, setParams] = useSearchParams();
@@ -28,6 +39,8 @@ export default function Products() {
     [current],
   );
 
+  const sizes = rowPlan(visible.length);
+
   const select = (id) => {
     const next = new URLSearchParams(params);
     if (id === 'all') next.delete('category');
@@ -42,7 +55,7 @@ export default function Products() {
       <PageHero
         eyebrow="Products"
         title="Products built by *TRANST.*"
-        lead="Software for running a business, a kitchen and an online store, for finding answers in your own documents, and for catching the right bus in Kerala. Filter by category or open a product for details."
+        lead="Software for running a business, its invoices, a kitchen and an online store, for finding answers in your own documents, and for catching the right bus in Kerala. Filter by category or open a product for details."
         compact
       />
 
@@ -83,13 +96,11 @@ export default function Products() {
           <motion.div
             layout
             className={styles.grid}
-            data-count={visible.length}
             data-odd={visible.length > 1 && visible.length % 2 === 1 ? '' : undefined}
-            data-many={visible.length >= 7 ? '' : undefined}
           >
             <AnimatePresence mode="popLayout" initial={false}>
-              {visible.map((p) => (
-                <ProductCard key={p.slug} product={p} />
+              {visible.map((p, i) => (
+                <ProductCard key={p.slug} product={p} size={sizes[i]} />
               ))}
             </AnimatePresence>
           </motion.div>
