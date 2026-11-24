@@ -7,6 +7,7 @@ import CommerceScene from './CommerceScene.jsx';
 import KnowledgeScene from './KnowledgeScene.jsx';
 import GoFreeScene from './GoFreeScene.jsx';
 import InvoiceScene from './InvoiceScene.jsx';
+import ControlTowerScene from './ControlTowerScene.jsx';
 
 /**
  * Product illustration for catalog cards and product pages, chosen by slug.
@@ -27,6 +28,7 @@ const SCENES = {
   coreknowledge: KnowledgeScene,
   gofree: GoFreeScene,
   'invoice-intake': InvoiceScene,
+  'agent-control-tower': ControlTowerScene,
 };
 
 export default function ProductArt({ product, active = false }) {

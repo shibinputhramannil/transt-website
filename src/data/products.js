@@ -32,6 +32,7 @@ export const categories = [
   { id: 'commerce', label: 'E-Commerce' },
   { id: 'knowledge', label: 'Knowledge Management' },
   { id: 'transport', label: 'Transport' },
+  { id: 'ai-agents', label: 'AI Agents' },
 ];
 
 export const products = [
@@ -752,6 +753,102 @@ export const products = [
       },
     ],
     stack: ['React', 'Vite', 'Django REST Framework', 'django-otp', 'SQLite'],
+    // The repository is private, so there is no public source link.
+  },
+
+  // Source: the private Agent Control Tower repository (README, docs/PRODUCT.md and code, main
+  // branch). An MVP, not deployed. Its tool connectors are SIMULATED with sample data: no real
+  // email is sent and no money moves. Keep saying so here until real connectors exist.
+  {
+    slug: 'agent-control-tower',
+    name: 'TRANST Agent Control Tower',
+    category: 'ai-agents',
+    featured: false,
+    summary:
+      'Mission control for AI agents: give each agent only the tools it needs, approve risky actions before they happen, pause or kill any agent, and audit every step.',
+    description:
+      'Agent Control Tower is one place to see and control a company’s AI agents: what each may do, what it did, what it is waiting for and who approved it. Its tool connectors are simulated with sample data for now, so no real email is sent and no money moves.',
+    capabilities: [
+      {
+        title: 'Agents and permissions',
+        text: 'Register an agent with a purpose, the tools it may use and a daily spending limit; every other tool is blocked. Edits never rewrite a run that is already in progress.',
+      },
+      {
+        title: 'Live runs',
+        text: 'Give an agent a task and watch every model turn and tool call on a live timeline. Agents run on Claude, or for free demos on Groq, Google Gemini’s free tier or a built-in demo brain.',
+      },
+      {
+        title: 'Policy rules',
+        text: 'Each tool call is allowed, held for approval or blocked, by rules for all agents or for one. High-risk calls, such as sending email or changing a large invoice, always need a person.',
+      },
+      {
+        title: 'Approval queue',
+        text: 'Approve or reject a held action with a note. The agent waits until a person decides, then carries on, or is told why not.',
+      },
+      {
+        title: 'Kill switch',
+        text: 'Pause an agent (reversible) or kill it (permanent). Its status is checked before every model call and every tool call.',
+      },
+      {
+        title: 'Audit and insights',
+        text: 'An append-only audit log of who did what, when and why, exportable to CSV, plus 7-, 14- or 30-day insights on runs, approvals and spend.',
+      },
+    ],
+    benefits: [
+      'A person approves every high-risk action before it happens',
+      'Each agent sees only the tools it was given',
+      'Any agent can be stopped at once',
+      'Every change is recorded, with who approved it and why',
+    ],
+    architecture: [
+      {
+        id: 'tasks',
+        label: 'Tasks',
+        layer: 'input',
+        text: 'Work given to an agent by an admin, such as checking an invoice or researching a supplier.',
+      },
+      {
+        id: 'people',
+        label: 'Admins and viewers',
+        layer: 'input',
+        text: 'People who sign in as an admin or a read-only viewer.',
+      },
+      {
+        id: 'runner',
+        label: 'Agent runner',
+        layer: 'core',
+        text: 'Sends the task to the agent’s brain (Claude, a free-tier model or the demo brain) and carries out the tool calls it chooses, one step at a time.',
+      },
+      {
+        id: 'policy',
+        label: 'Policy engine',
+        layer: 'core',
+        text: 'Checks every tool call against the agent’s permissions and the rules: allow it, hold it for approval or block it.',
+      },
+      {
+        id: 'connectors',
+        label: 'Tool connectors',
+        layer: 'output',
+        text: 'Email, CRM, invoices and supplier research. Simulated with sample data for now: no real email is sent and no money moves.',
+      },
+      {
+        id: 'audit',
+        label: 'Approvals and audit log',
+        layer: 'output',
+        text: 'The approval queue, and an append-only record of every change, with insights over time.',
+      },
+    ],
+    useCases: [
+      {
+        title: 'Trying agents safely',
+        text: 'Let an invoice or support agent work on sample data while every risky step waits for a person, before connecting real systems.',
+      },
+      {
+        title: 'Oversight for AI agents',
+        text: 'See what each agent did today, what it is waiting for and how much it has spent against its daily limit, and stop it if needed.',
+      },
+    ],
+    stack: ['React', 'Vite', 'Tailwind CSS', 'Django REST Framework', 'PostgreSQL', 'Claude API'],
     // The repository is private, so there is no public source link.
   },
 ];

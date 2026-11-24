@@ -23,7 +23,7 @@ export const pages = {
   '/products': {
     title: 'Products',
     description:
-      'TRANST software products: an ERP, invoice intake, kitchen operations, an e-commerce platform, CoreKnowledge for your documents, and GoFree for Kerala buses.',
+      'TRANST software products: an ERP, invoice intake, kitchen operations, e-commerce, CoreKnowledge for documents, GoFree for Kerala buses, and an AI agent control tower.',
   },
   '/services': {
     title: 'Services',

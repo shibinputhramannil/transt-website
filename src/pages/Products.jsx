@@ -55,7 +55,7 @@ export default function Products() {
       <PageHero
         eyebrow="Products"
         title="Products built by *TRANST.*"
-        lead="Software for running a business, its invoices, a kitchen and an online store, for finding answers in your own documents, and for catching the right bus in Kerala. Filter by category or open a product for details."
+        lead="Software for running a business, its invoices, a kitchen and an online store, for finding answers in your own documents, for catching the right bus in Kerala, and for keeping AI agents in check. Filter by category or open a product for details."
         compact
       />
 

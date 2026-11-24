@@ -13,7 +13,7 @@ npm run preview    # serve dist/ at http://localhost:4173
 
 - [x] **Production domain.** On Vercel, `VITE_SITE_URL` is `https://transt-website.vercel.app` (Production environment). Change it and redeploy when a custom domain is added (see Deploying).
 - [ ] **WhatsApp country code.** The number was supplied as `8590675644` without a country code, and `+91` (India) is assumed. Confirm it, or correct it in `src/data/contact.js`.
-- [x] **Real products.** The catalog lists the seven TRANST products (see Products below).
+- [x] **Real products.** The catalog lists the eight TRANST products (see Products below).
 - [ ] **Contact backend (optional).** The form only hands messages to WhatsApp or email; nothing is submitted to a server.
 
 ## Deploying
@@ -69,7 +69,7 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
 
 ### Products
 
-`products.js` lists the seven TRANST products. Every statement comes from the product's own repository (README and docs, checked against the code):
+`products.js` lists the eight TRANST products. Every statement comes from the product's own repository (README and docs, checked against the code):
 
 | Product | Page | Category | Repository |
 | --- | --- | --- | --- |
@@ -80,6 +80,7 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
 | CoreKnowledge | `/products/coreknowledge` | Knowledge Management | private repository (no source link) |
 | GoFree | `/products/gofree` | Transport | private repository (no source link) |
 | TRANST Invoice Intake | `/products/invoice-intake` | Business Operations (Pilot) | private repository (no source link) |
+| TRANST Agent Control Tower | `/products/agent-control-tower` | AI Agents | private repository (no source link) |
 
 - **CoreKnowledge** is built (phases 1–5, on the repository's `phases-2-5` branch) and runs as a private pilot. **No AI model is connected yet:** a built-in provider quotes the documents. The app says so, and so does the website (the "Answers with citations" capability and the "Answer service" node). Update those two texts when a model is connected.
 - **Product status** (`status` plus a `statusNote`; labels in `STATUSES` in `products.js`) adds a tag on the card and a notice on the page:
@@ -102,6 +103,7 @@ When the domain is **not** set, the build warns and deliberately emits no absolu
   - **CoreKnowledge:** passages are found and quoted in a cited answer.
   - **GoFree:** a bus drawn as a dashed scheduled estimate turns LIVE when a passenger shares GPS, drives toward your stop, and the stop alert rings. The page keeps the app's rules: positions are live only from real GPS, fares are estimates, timetables come from public sources, and alerts work while the app is open.
   - **Invoice Intake:** a scan line reads the invoice and the fields fill in; the uncertain date is flagged until a person confirms it; then the invoice is approved and the CSV goes out.
+  - **Agent Control Tower:** an agent sends three tool calls through the policy gate. One is allowed, one waits until a person approves it, and one is blocked; each decision becomes a line in the audit log. The page says the tool connectors are simulated with sample data (no real email is sent and no money moves).
 
   A product without a scene of its own gets the generated emblem (`ProductGlyph`). To add a scene, follow the note at the top of `ProductArt.jsx`.
 
